@@ -1,3 +1,4 @@
+import { yutub } from "../downloader.js";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     try {
         await sock.sendMessage(id, { text: 'Processing, please wait...' });

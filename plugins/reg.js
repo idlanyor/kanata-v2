@@ -1,4 +1,4 @@
-import { registerUser } from "../helper/database"
+import { registerUser } from "../helper/database.js"
 
 export default async () => {
     if (psn === '') {

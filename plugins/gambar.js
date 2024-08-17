@@ -1,5 +1,5 @@
 import { tebak } from "../helper/lolhuman.js";
-import { tebakSession } from "../tebak";
+import { tebakSession } from "../tebak/index.js";
 
 const gambar = async (id, sock) => {
     try {

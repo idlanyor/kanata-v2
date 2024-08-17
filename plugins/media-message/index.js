@@ -1,7 +1,7 @@
-import { tomp3 } from "../../features/converter";
-import { removebg } from "../../features/image";
-import { gambarPdf } from "../../features/pdf";
-import sticker from "../../features/sticker";
+import { tomp3 } from "../../features/converter.js";
+import { removebg } from "../../features/image.js";
+import { gambarPdf } from "../../features/pdf.js";
+import sticker from "../../features/sticker.js";
 
 export async function mediaMsg(sock, m, chatUpdate) {
     await sticker(sock, m, chatUpdate);

@@ -7,6 +7,13 @@ import { mediaMsg } from './plugins/media-message/index.js';
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
+import { tebakSession, checkAnswer } from './tebak/index.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Mendefinisikan __dirname kanggo ES6
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const bot = new wabe({
     phoneNumber: config.notelp,
@@ -19,11 +26,6 @@ bot.start().then((sock) => {
         try {
             let m = chatUpdate.messages[0];
             // make sticker
-            await sticker(sock, m, chatUpdate);
-            await removebg(sock, m, chatUpdate)
-            await gambarPdf(sock, m, chatUpdate)
-            await tomp3(sock, m, chatUpdate)
-            console.log(m.message)
             await mediaMsg(sock, m, chatUpdate);
 
             if (!m.message) return;
@@ -60,13 +62,13 @@ bot.start().then((sock) => {
 
                 // Mengimpor setiap plugin secara dinamis
                 const plugins = {};
-                pluginFiles.forEach(file => {
+                for (const file of pluginFiles) {
                     if (file.endsWith('.js')) {
                         const pluginName = path.basename(file, '.js');
-                        plugins[pluginName] = require(path.join(pluginsDir, file)).default;
+                        const { default: plugin } = await import(path.join(pluginsDir, file));
+                        plugins[pluginName] = plugin;
                     }
-                });
-
+                }
 
                 if (plugins[cmd]) {
                     await plugins[cmd]({ sock, m, id, psn, sender, noTel, caption });

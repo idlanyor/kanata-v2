@@ -1,4 +1,4 @@
-import { helpMessage } from "../helper/help"
+import { helpMessage } from "../helper/help.js"
 
 export default async ({ sock, id, m, noTel, sender }) => {
     await sock.sendMessage(id, {

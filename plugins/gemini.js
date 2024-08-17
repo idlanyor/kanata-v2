@@ -1,4 +1,4 @@
-import { gemini } from "../ai";
+import { gemini } from "../ai.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {

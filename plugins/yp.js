@@ -1,3 +1,4 @@
+import { ytPlay } from '../features/youtube.js'
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     try {
         if (psn === '') {

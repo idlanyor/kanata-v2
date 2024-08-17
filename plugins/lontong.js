@@ -1,6 +1,6 @@
-import { tebak } from "../helper/lolhuman";
-import { tebakSession } from "../tebak";
-import { maskSentence } from "../helper/word";
+import { tebak } from "../helper/lolhuman.js";
+import { tebakSession } from "../tebak/index.js";
+import { maskSentence } from "../helper/word.js";
 const caklontong = async (id, sock) => {
     try {
         const response = await tebak('caklontong');
