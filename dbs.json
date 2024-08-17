@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "@6285328913428",
+      "userName": "Wisesa",
+      "isPrem": false,
+      "points": 0,
+      "credit": 10
+    },
+    {
+      "id": "@6287817539553",
+      "userName": "Suci Anggraeni Pratiwi",
+      "isPrem": false,
+      "points": 983,
+      "credit": 10
+    },
+    {
+      "id": "@62895395590009",
+      "userName": "Idlanyor",
+      "isPrem": false,
+      "points": 0,
+      "credit": 10
+    }
+  ]
+}
