@@ -15,6 +15,22 @@ import { checkAnswer, tebakSession } from './lib/tebak/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+function findJsFiles(dir) {
+    let results = [];
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat && stat.isDirectory()) {
+            // Yen iku folder, rekursif
+            results = results.concat(findJsFiles(filePath));
+        } else if (file.endsWith('.js')) {
+            // Yen iku file .js, tambahake menyang results
+            results.push(filePath);
+        }
+    });
+    return results;
+}
 
 async function getPhoneNumber() {
     const rl = readline.createInterface({
@@ -97,15 +113,13 @@ async function startBot() {
                     //     }
                     // }
                     const pluginsDir = path.join(__dirname, 'plugins');
-                    const pluginFiles = fs.readdirSync(pluginsDir);
+                    const pluginFiles = findJsFiles(pluginsDir);
 
                     const plugins = {};
                     for (const file of pluginFiles) {
-                        if (file.endsWith('.js')) {
-                            const pluginName = path.basename(file, '.js');
-                            const { default: plugin } = await import(pathToFileURL(path.join(pluginsDir, file)).href);
-                            plugins[pluginName] = plugin;
-                        }
+                        const pluginName = path.basename(file, '.js');
+                        const { default: plugin } = await import(pathToFileURL(file).href);
+                        plugins[pluginName] = plugin;
                     }
 
                     if (plugins[cmd]) {

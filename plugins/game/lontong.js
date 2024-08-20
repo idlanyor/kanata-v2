@@ -1,12 +1,13 @@
-import { tebak } from "../helper/lolhuman.js";
-import { tebakSession } from "../lib/tebak/index.js";
-export const bendera = async (id, sock) => {
+import { tebak } from "../../helper/lolhuman.js";
+import { tebakSession } from "../../lib/tebak/index.js";
+import { maskSentence } from "../../helper/word.js";
+const caklontong = async (id, sock) => {
     try {
-        const response = await tebak('bendera');
-        const question = response.data.result.flag;
-        const answer = response.data.result.name;
+        const response = await tebak('caklontong');
+        const question = response.data.result.question;
+        const answer = response.data.result.answer;
 
-        await sock.sendMessage(id, { text: question });
+        await sock.sendMessage(id, { text: question + ` ${maskSentence(answer)} (${answer.length}) kata` });
 
         tebakSession.set(id, {
             answer: answer,
@@ -21,5 +22,5 @@ export const bendera = async (id, sock) => {
     }
 };
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    await bendera(id, sock);
+    await caklontong(id, sock);
 };

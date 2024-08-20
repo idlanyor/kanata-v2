@@ -1,10 +1,10 @@
-import { tebak } from "../helper/lolhuman.js";
-import { tebakSession } from "../lib/tebak/index.js";
-const jenaka = async (id, sock) => {
+import { tebak } from "../../helper/lolhuman.js";
+import { tebakSession } from "../../lib/tebak/index.js";
+const susun = async (id, sock) => {
     try {
-        const response = await tebak('jenaka');
-        const question = response.data.result.question;
-        const answer = response.data.result.answer;
+        const response = await tebak('susunkata');
+        const question = response.data.result.pertanyaan;
+        const answer = response.data.result.jawaban;
 
         await sock.sendMessage(id, { text: question });
 
@@ -21,6 +21,5 @@ const jenaka = async (id, sock) => {
     }
 };
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    await jenaka(id, sock);
-
+    await susun(id, sock);
 };

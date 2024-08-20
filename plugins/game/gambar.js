@@ -1,12 +1,12 @@
-import { tebak } from "../helper/lolhuman.js";
-import { tebakSession } from "../lib/tebak/index.js";
-const susun = async (id, sock) => {
-    try {
-        const response = await tebak('susunkata');
-        const question = response.data.result.pertanyaan;
-        const answer = response.data.result.jawaban;
+import { tebak } from "../../helper/lolhuman.js";
+import { tebakSession } from "../../lib/tebak/index.js";
 
-        await sock.sendMessage(id, { text: question });
+const gambar = async (id, sock) => {
+    try {
+        const response = await tebak('gambar');
+        const img = response.data.result.image;
+        const answer = response.data.result.answer;
+        await sock.sendMessage(id, { image: { url: img.replace(/\.png$/, '.jpg') } })
 
         tebakSession.set(id, {
             answer: answer,
@@ -20,6 +20,7 @@ const susun = async (id, sock) => {
         await sock.sendMessage(id, { text: 'Terjadi kesalahan, silakan coba lagi.' });
     }
 };
+
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    await susun(id, sock);
+    await gambar(id, sock);
 };

@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../../config.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (noTel.replace('@', '') !== config.ownerNumber) {
