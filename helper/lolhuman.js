@@ -4,7 +4,7 @@ import config from '../config.js';
 const axiosInstance = axios.create({
     baseURL: 'https://api.lolhuman.xyz/api/',
     params: {
-        apikey: config.apikey
+        apikey: config.apiHelper.lolhuman.apikey
     }
 });
 
@@ -21,7 +21,7 @@ export const lol = async (url, config = {}) => {
         return await axiosInstance.get(url, config);
     } catch (error) {
         console.error('Error in tebak request:', error);
-        throw error; // Rethrow the error for handling in calling functions
+        throw error; 
     }
 };
 export const lolPost = async (url, config = {}) => {
@@ -29,6 +29,6 @@ export const lolPost = async (url, config = {}) => {
         return await axiosInstance.post(url, config);
     } catch (error) {
         console.error('Error in tebak request:', error);
-        throw error; // Rethrow the error for handling in calling functions
+        throw error; 
     }
 };

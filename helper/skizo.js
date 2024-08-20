@@ -13,6 +13,6 @@ export const skizo = async (url, config = {}) => {
         return await axiosInstance.get(url, config);
     } catch (error) {
         console.error('Error in skizo request:', error);
-        throw error; // Rethrow the error for handling in calling functions
+        throw error;
     }
 };

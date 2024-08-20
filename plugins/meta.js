@@ -5,6 +5,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         await sock.sendMessage(id, { text: 'Processing, please wait...' });
         let result = await meta(psn);
         // console.log(result.audio)
+        await sock.sendMessage(id, { image: { url: result } });
         await sock.sendMessage(id, { video: { url: result } });
 
     } catch (error) {

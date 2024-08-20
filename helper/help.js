@@ -1,4 +1,4 @@
-// import { quotes } from "../features/random.js";
+import { quotes } from "../features/random.js";
 import { getUser } from "./database.js";
 
 export async function helpMessage(sender, id) {
@@ -67,6 +67,7 @@ Here My Command List
 > owner - nampilin nomor owner bot
 > ping - buat ngecek kecepatan respons bot
 
+${await quotes()}
 `;
 
         console.log(caption);
