@@ -1,4 +1,4 @@
-import { chatgpt4 } from "../features/rapidai.js";
+import { chatgpt4 } from "../lib/rapidai.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {

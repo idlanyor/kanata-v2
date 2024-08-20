@@ -1,5 +1,5 @@
 import { tebak } from "../helper/lolhuman.js";
-import { tebakSession } from "../tebak/index.js";
+import { tebakSession } from "../lib/tebak/index.js";
 import { maskSentence } from "../helper/word.js";
 const caklontong = async (id, sock) => {
     try {

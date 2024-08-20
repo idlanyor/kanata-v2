@@ -1,7 +1,6 @@
 import { downloadContentFromMessage } from "@whiskeysockets/baileys"
 
 export const getMedia = async (msg) => {
-    console.log(msg)
     const messageType = Object.keys(msg?.message)[0]
     const stream = await downloadContentFromMessage(msg.message[messageType], messageType.replace('Message', ''))
     let buffer = Buffer.from([])

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import os from 'os';
 
 const calculatePing = function (timestamp, now) {
     return moment.duration(now - moment(timestamp * 1000)).asSeconds();

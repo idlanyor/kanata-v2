@@ -1,5 +1,4 @@
 import axios from 'axios'
-import fs from 'fs'
 import FormData from 'form-data'
 
 export const telegraph = async (fileBuffer) => {
@@ -18,11 +17,11 @@ export const telegraph = async (fileBuffer) => {
     }
 }
 
-(async () => {
-    try {
-        const result = await telegraph(fs.createReadStream('./image.png'))
-        console.log(result)
-    } catch (error) {
-        console.error('Error uploading file:', error)
-    }
-})()
+// (async () => {
+//     try {
+//         const result = await telegraph(fs.createReadStream('./image.png'))
+//         console.log(result)
+//     } catch (error) {
+//         console.error('Error uploading file:', error)
+//     }
+// })()

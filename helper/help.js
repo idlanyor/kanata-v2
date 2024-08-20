@@ -1,4 +1,4 @@
-import { quotes } from "../features/random.js";
+import { quotes } from "../lib/random.js";
 import { getUser } from "./database.js";
 
 export async function helpMessage(sender, id) {

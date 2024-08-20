@@ -1,4 +1,4 @@
-import { meta } from "../downloader.js";
+import { meta } from "../lib/downloader.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     try {
