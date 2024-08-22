@@ -25,7 +25,8 @@ export async function helpMessage(sender, id) {
 💸 CREDIT: ${user.credit || 0}`;
         }
 
-    let caption = `
+        let caption = `
+${cek()}
 *Kanata Bot*
 _by Idlanyor_\n\n
 
@@ -87,15 +88,12 @@ export const memberIngfo = (id) => {
             return 'Anda belum terdaftar'
         }
 
-        function cek() {
-            return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
+        return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
 🗝 ID: ${user.id || id}
 📝 NAMA: ${user.userName || sender}
 ✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
 💯 POIN: ${user.points || 0}
 💸 CREDIT: ${user.credit || 0}`;
-        }
-        return cek()
     } catch (e) {
         return "Terjadi kesalahan saat mengambil data pengguna.";
     }

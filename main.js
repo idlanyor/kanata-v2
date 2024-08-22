@@ -70,6 +70,7 @@ async function startBot() {
         sock.ev.on('messages.upsert', async chatUpdate => {
             try {
                 let m = chatUpdate.messages[0];
+                console.log(m)
                 // make sticker
                 await mediaMsg(sock, m, chatUpdate);
 
