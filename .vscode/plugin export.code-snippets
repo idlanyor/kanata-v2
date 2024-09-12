@@ -20,7 +20,18 @@
 		"prefix": "eeee",
 		"body": [
 			"export default async ({ sock, m, id, psn, sender, noTel, caption }) => {",
-				"\t$1",
+			"\t$1",
+			"};",
+			"$2" // Cursor akhir
+		],
+		"description": "Snippet untuk plugin export default"
+	},
+	"Plugin Snippet List": {
+		"scope": "javascript",
+		"prefix": "ppp",
+		"body": [
+			"export default async ({ sock, m, id, psn='', sender }) => {",
+			"\t$1",
 			"};",
 			"$2" // Cursor akhir
 		],
