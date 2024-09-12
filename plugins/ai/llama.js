@@ -1,4 +1,4 @@
-import { gemini } from "../../lib/ai.js";
+import { llamaGroq } from "../../lib/ai.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {

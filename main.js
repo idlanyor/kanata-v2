@@ -11,6 +11,7 @@ import { dirname } from 'path';
 import { groupParticipants, groupUpdate } from './lib/group.js';
 import { checkAnswer, tebakSession } from './lib/tebak/index.js';
 
+
 // Mendefinisikan __dirname kanggo ES6
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -70,13 +71,32 @@ async function startBot() {
         sock.ev.on('messages.upsert', async chatUpdate => {
             try {
                 let m = chatUpdate.messages[0];
-                console.log(m)
+                if (m.message && m.message.interactiveResponseMessage) {
+                    const pluginsDir = path.join(__dirname, 'plugins');
+                    const pluginFiles = findJsFiles(pluginsDir);
+                    const plugins = {};
+                    for (const file of pluginFiles) {
+                        const pluginName = path.basename(file, '.js');
+                        const { default: plugin } = await import(pathToFileURL(file).href);
+                        plugins[pluginName] = plugin;
+                    }
+                    const { id: cmdFromlist } = JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
+                    console.log(cmdFromlist)
+                    if (plugins[cmdFromlist]) {
+                        await plugins[cmdFromlist]({ psn: "", sock, m, id: m.key.remoteJid, sender: m.pushName || m.key.remoteJid || m.key.participant });
+                    }
+                }
+                // console.log(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
                 // make sticker
                 await mediaMsg(sock, m, chatUpdate);
 
                 if (!m.message) return;
+                if (m.key && m.key.remoteJid === "status@broadcast") await sock.readMessages([m.key])
+                // if (!sock.public && !m.key.fromMe && chatUpdate.type === 'notify') return;
+                if (m.key.id.startsWith('BAE5') && m.key.id.length === 16) return;
                 const chat = await clearMessages(m);
                 if (!chat) return;
+
                 let parsedMsg, sender, id, quotedMessageId, noTel;
                 if (chat.chatsFrom === "private") {
                     parsedMsg = chat.message;
@@ -92,30 +112,27 @@ async function startBot() {
                     id = chat.remoteJid;
                     quotedMessageId = m;
                 }
+                // 
                 const pesan = parsedMsg.split(' ');
                 const cmd = pesan[0].toLowerCase();
                 const psn = pesan.slice(1).join(' ');
                 noTel = '@' + noTel.replace('@s.whatsapp.net', '');
                 let isOwner = noTel.replace('@', '') !== config.ownerNumber
                 let caption = "";
+                let lastGreetTime = 0; // Waktu terakhir kali kirim pesan dalam timestamp (ms)
+                const greetInterval = 10 * 60 * 1000; // 10 menit dalam milidetik
+                let ownerGreeted = false; // Flag apakah sudah kirim pesan sambutan atau belum
+                const now = new Date().getTime();
                 if (tebakSession.has(id)) {
                     if (m.key.fromMe) return
                     await checkAnswer(id, parsedMsg.toLowerCase(), sock, quotedMessageId, noTel);
                 } else {
-                    // const pluginsDir = path.join(__dirname, 'plugins');
-                    // const pluginFiles = fs.readdirSync(pluginsDir);
 
-                    // const plugins = {};
-                    // for (const file of pluginFiles) {
-                    //     if (file.endsWith('.js')) {
-                    //         const pluginName = path.basename(file, '.js');
-                    //         const { default: plugin } = await import(path.join(pluginsDir, file));
-                    //         plugins[pluginName] = plugin;
-                    //     }
-                    // }
+                    // sambutan({ id, sock, isOwner, sender, lastGreetTime, greetInterval, ownerGreeted, now })
+
+
                     const pluginsDir = path.join(__dirname, 'plugins');
                     const pluginFiles = findJsFiles(pluginsDir);
-
                     const plugins = {};
                     for (const file of pluginFiles) {
                         const pluginName = path.basename(file, '.js');
@@ -124,8 +141,10 @@ async function startBot() {
                     }
 
                     if (plugins[cmd]) {
-                        await plugins[cmd]({ sock, m, id, psn, sender, noTel, caption });
+                        await plugins[cmd]({ sock, m, id, psn, sender, noTel, caption, isOwner });
                     }
+
+
                 }
 
                 // Menampilkan log informatif ketika ada pesan masuk

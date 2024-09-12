@@ -1,4 +1,4 @@
-import { gemini } from "../../lib/ai.js";
+import { mixtralGroq } from "../../lib/ai.js";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {

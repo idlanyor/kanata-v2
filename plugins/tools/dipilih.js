@@ -12,7 +12,6 @@ export default async ({ sock, m, id }) => {
         const pollId = m.message.pollUpdateMessage.pollCreationMessageKey.id;
         const voterJid = m.key.participant;
         const vote = m.message.pollUpdateMessage.vote.selectedOptions;
-
         console.log(`Pengguna ${voterJid} telah melakukan vote di polling ${pollId} dengan pilihan: ${vote}`);
         // Lakukan sesuatu dengan data vote
     }
