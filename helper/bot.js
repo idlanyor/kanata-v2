@@ -36,7 +36,7 @@ class wabe {
             version,
             logger: P,
             printQRInTerminal: false,
-            browser: Browsers.ubuntu("Chrome"),
+            browser: Browsers.macOS("Safari"),
             auth: {
                 creds: state.creds,
                 keys: makeCacheableSignalKeyStore(state.keys, P),

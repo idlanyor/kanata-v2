@@ -1,5 +1,5 @@
 import pkg from '@whiskeysockets/baileys';
-const { generateWAMessageFromContent, prepareWAMessageMedia, proto } = pkg;
+const { generateWAMessageFromContent, proto } = pkg;
 import { helpMessage } from '../../helper/help.js'
 
 export default async ({ sock, id, m, noTel, sender }) => {
@@ -7,62 +7,52 @@ export default async ({ sock, id, m, noTel, sender }) => {
         title: 'List Menu Little Kanata Bot',
         rows: [{
             title: 'Artificial Intelligence',
-            description: `<!> Tampilkan Fitur AI`,
+            description: `Tampilkan Fitur AI`,
             id: `listai`
         },
         {
             title: 'Downloader',
-            description: "<!> Tampilkan Fitur AI Voice",
+            description: "Tampilkan Fitur Download",
             id: `listdl`
         },
         {
             title: 'Mini Game',
-            description: "<!> Tampilkan List Mini Game",
+            description: "Tampilkan List Mini Game",
             id: `listmg`
         },
         {
             title: 'Webzone Menu',
-            description: "<!> Tampilkan Fitur Webzone",
+            description: "Tampilkan Fitur Webzone",
             id: `listweb`
         },
         {
             title: 'Image Menu',
-            description: "<!> Tampilkan Fitur Kreasi Gambar",
+            description: "Tampilkan Fitur Kreasi Gambar",
             id: `listimg`
         },
         {
             title: 'Tools Menu',
-            description: "<!> Tampilkan Fitur Tools",
+            description: "Tampilkan Fitur Tools",
             id: `listtools`
         },
         {
             title: 'SMM Menu',
-            description: "<!> Tampilkan Fitur SMM",
+            description: "Tampilkan Fitur SMM",
             id: `listsmm`
         },
         {
-            title: 'Photooxy Menu',
-            description: "<!> Tampilkan Fitur Photooxy",
-            id: `listpo`
-        },
-        {
-            title: 'Ephoto Menu',
-            description: "<!> Tampilkan Fitur Ephoto",
-            id: `listep`
-        },
-        {
             title: 'Sticker Menu',
-            description: "<!> Tampilkan Fitur Sticker",
+            description: "Tampilkan Fitur Sticker",
             id: `liststik`
         },
         {
-            title: 'Menu List',
-            description: "<!> Tampilkan Fitur Simple Menu",
+            title: 'Menu Simple',
+            description: "Tampilkan Simple Menu",
             id: `menu`
         },
         {
             title: 'Owner Menu List',
-            description: "<!> Display All Owner •",
+            description: "Display All Owner •",
             id: `listown`
         }]
     }]
@@ -72,7 +62,7 @@ export default async ({ sock, id, m, noTel, sender }) => {
         sections
     };
 
-    let msghhhhhhhhhhhhhhhhhhh = generateWAMessageFromContent(m.chat, {
+    let kanata = generateWAMessageFromContent(m.chat, {
 
         viewOnceMessage: {
             message: {
@@ -119,10 +109,10 @@ export default async ({ sock, id, m, noTel, sender }) => {
             }
         }
     });
-    console.log(msghhhhhhhhhhhhhhhhhhh)
+    console.log(kanata)
 
-    await sock.relayMessage(id, msghhhhhhhhhhhhhhhhhhh.message, {
-        messageId: msghhhhhhhhhhhhhhhhhhh.key.id
+    await sock.relayMessage(id, kanata.message, {
+        messageId: kanata.key.id
     });
     // await sock.sendMessage(id, {
     //     document: fs.readFileSync("./kanata.docx"), // Path ke file MS Word

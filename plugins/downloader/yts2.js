@@ -1,4 +1,3 @@
-import { generateWAMessageFromContent, proto } from "@whiskeysockets/baileys";
 import { ytsearch } from "../../lib/youtube.js";
 
 let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg'
@@ -45,8 +44,7 @@ const ytSearchResult = async (query) => {
 
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    if (psn == "") return sock.sendMessage(id, { text: "Mau cari apa?\n ketik yts *<query>*\nContoh : *yts himawari*" })
-    let roy = `*Powered By Little Kanata*\nmenampilkan hasil pencarian untuk : "${psn}", pilih di bawah ini sesuai format yang Kamu inginkan. 🍿`
+    let roy = `*Powered By Kanata*\nmenampilkan hasil pencarian untuk : "${psn}", pilih di bawah ini sesuai format yang Anda inginkan. 🍿`
     let msg = generateWAMessageFromContent(m.chat, {
         viewOnceMessage: {
             message: {
@@ -62,8 +60,8 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
                         text: '©️ Little Kanata'
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
-                        subtitle: sender,
-                        hasMediaAttachment: true, ...(await prepareWAMessageMedia({ image: { url: image } }, { upload: sock.waUploadToServer }))
+                        subtitle: namebot,
+                        hasMediaAttachment: true, ...(await prepareWAMessageMedia({ image: { url: image } }, { upload: conn.waUploadToServer }))
                     }),
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
                         buttons: [

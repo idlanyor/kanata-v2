@@ -7,8 +7,20 @@ export default async ({ sock, id, m, noTel, sender }) => {
         title: 'List Artificial Intelligence',
         rows: [
             {
-                title: 'GPT4 - Openai',
-                id: `gpt4`
+                title: 'GPT3.5 - Skizotech',
+                id: `ai`
+            },
+            {
+                title: 'GPT Turbo V2 - Skizotech',
+                id: `ai2`
+            },
+            {
+                title: 'GPT WebAccess - Openai',
+                id: `ai3`
+            },
+            {
+                title: 'AI - Blackbox',
+                id: `bb`
             },
             {
                 title: 'Gemini - Google',

@@ -1,32 +1,32 @@
 // import { quotes } from "../lib/random.js";
-import { getUser } from "./database.js";
+// import { getUser } from "./database.js";
 
-export async function helpMessage(sender, id) {
-    try {
-        let user = await getUser(id);
+export async function helpMessage(sender) {
+    // try {
+    //     let user = await getUser(id);
 
-        // Periksa apakah user ada atau tidak
-        if (!user) {
-            user = {
-                id: id,
-                userName: sender,
-                isPrem: false,
-                points: 0,
-                credit: 0
-            };
-        }
+    //     // Periksa apakah user ada atau tidak
+    //     if (!user) {
+    //         user = {
+    //             id: id,
+    //             userName: sender,
+    //             isPrem: false,
+    //             points: 0,
+    //             credit: 0
+    //         };
+    //     }
 
-        function cek() {
-            return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
-🗝 ID: ${user.id || id}
-📝 NAMA: ${user.userName || sender}
-✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
-💯 POIN: ${user.points || 0}
-💸 CREDIT: ${user.credit || 0}`;
-        }
+    //         function cek() {
+    //             return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
+    // 🗝 ID: ${user.id || id}
+    // 📝 NAMA: ${user.userName || sender}
+    // ✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
+    // 💯 POIN: ${user.points || 0}
+    // 💸 CREDIT: ${user.credit || 0}`;
+    //         }
 
-        let caption = `
-${cek()}
+    // ${cek()}
+    let caption = `
 *Kanata Bot*
 _by Idlanyor_\n\n
 
@@ -70,31 +70,31 @@ Here My Command List
 
 `;
 
-// $//{//await quotes()}
-        console.log(caption);
-        return caption;
+    // $//{//await quotes()}
+    // console.log(caption);
+    return caption;
 
-    } catch (error) {
-        console.log(error);
-        return "Terjadi kesalahan saat mengambil data pengguna.";
-    }
+    // } catch (error) {
+    //     console.log(error);
+    //     return "Terjadi kesalahan saat mengambil data pengguna.";
+    // }
 }
 
-export const memberIngfo = (id) => {
-    try {
-        let user = getUser(id);
+// export const memberIngfo = (id) => {
+//     try {
+//         let user = getUser(id);
 
-        if (!user) {
-            return 'Anda belum terdaftar'
-        }
+//         if (!user) {
+//             return 'Anda belum terdaftar'
+//         }
 
-        return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
-🗝 ID: ${user.id || id}
-📝 NAMA: ${user.userName || sender}
-✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
-💯 POIN: ${user.points || 0}
-💸 CREDIT: ${user.credit || 0}`;
-    } catch (e) {
-        return "Terjadi kesalahan saat mengambil data pengguna.";
-    }
-}
+//         return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
+// 🗝 ID: ${user.id || id}
+// 📝 NAMA: ${user.userName || sender}
+// ✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
+// 💯 POIN: ${user.points || 0}
+// 💸 CREDIT: ${user.credit || 0}`;
+//     } catch (e) {
+//         return "Terjadi kesalahan saat mengambil data pengguna.";
+//     }
+// }

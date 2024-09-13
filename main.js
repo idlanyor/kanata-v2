@@ -1,5 +1,5 @@
-import { clearMessages } from '@umamdev/wabe'
-import { wabe } from './helper/bot.js';
+// import { clearMessages } from '@umamdev/wabe'
+import { wabe, clearMessages } from './helper/bot.js';
 import config from "./config.js";
 import { mediaMsg } from './plugins/media-message/index.js';
 import { fileURLToPath, pathToFileURL } from 'url';
@@ -72,6 +72,28 @@ async function startBot() {
             try {
                 let m = chatUpdate.messages[0];
                 if (m.message && m.message.interactiveResponseMessage) {
+                    const chat = await clearMessages(m);
+                    if (!chat) return;
+
+                    let parsedMsg, sender, id, quotedMessageId, noTel;
+                    if (chat.chatsFrom === "private") {
+                        parsedMsg = chat.message;
+                        sender = chat.pushName || chat.remoteJid;
+                        id = chat.remoteJid;
+                        noTel = chat.remoteJid;
+                        quotedMessageId = m;
+                    } else if (chat.chatsFrom === "group") {
+                        console.log(chat);
+                        parsedMsg = chat.participant.message;
+                        noTel = chat.participant.number;
+                        sender = chat.participant.pushName || chat.participant.number;
+                        id = chat.remoteJid;
+                        quotedMessageId = m;
+                    }
+                    // 
+                    const pesan = parsedMsg.split(' ');
+                    const cmd = pesan[0].toLowerCase();
+                    const psn = pesan.slice(1).join(' ');
                     const pluginsDir = path.join(__dirname, 'plugins');
                     const pluginFiles = findJsFiles(pluginsDir);
                     const plugins = {};
@@ -83,7 +105,7 @@ async function startBot() {
                     const { id: cmdFromlist } = JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
                     console.log(cmdFromlist)
                     if (plugins[cmdFromlist]) {
-                        await plugins[cmdFromlist]({ psn: "", sock, m, id: m.key.remoteJid, sender: m.pushName || m.key.remoteJid || m.key.participant });
+                        await plugins[cmdFromlist]({ sock, m, id, psn, sender, noTel, caption });
                     }
                 }
                 // console.log(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
