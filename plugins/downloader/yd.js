@@ -1,5 +1,8 @@
 import { yutub } from "../../lib/downloader.js";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
+    if (psn === '') {
+        sock.sendMessage(id, { text: 'prefix *yd* <url> \n contoh : yd https://youtu.be/7P8tR5cJXk0' })
+    }
     try {
         await sock.sendMessage(id, { text: 'Processing, please wait...' });
         let result = await yutub(psn)

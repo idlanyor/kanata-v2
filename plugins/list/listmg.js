@@ -3,45 +3,32 @@ const { generateWAMessageFromContent, proto } = pkg;
 
 export default async ({ sock, id, m, noTel, sender }) => {
     let sections = [{
-        title: 'List Artificial Intelligence',
+        title: 'Mini Games',
         rows: [
             {
-                title: 'GPT3.5 - Skizotech',
-                id: `ai`
+                title: 'Tebak Gambar',
+                id: `gambar`
             },
             {
-                title: 'GPT Turbo V2 - Skizotech',
-                id: `ai2`
+                title: 'Tebak Bendera',
+                id: `bendera`
             },
             {
-                title: 'Gemini - Google',
-                id: `gemini`
+                title: 'Tebak Kata Jenaka',
+                id: `jenaka`
             },
             {
-                title: 'Mixtral - Official',
-                id: `mixtral`
+                title: 'Teka Teki Sulit - Lontong',
+                id: `lontong`
             },
-            {
-                title: 'Llama3 Meta - Groq',
-                id: `llama`
-            },
-            {
-                title: 'Mistral - Groq',
-                id: `mistral`
-            },
-            {
-                title: 'Gemma - Groq',
-                id: `gemma`
-            },
-
         ]
     }]
 
     let listMessage = {
-        title: 'List Menu Kanata',
+        title: 'List Mini Games',
         sections
     };
-    let msghhhhhhhhhhhhhhhhhhh = generateWAMessageFromContent(m.chat, {
+    let msgMiniGames = generateWAMessageFromContent(m.chat, {
 
         viewOnceMessage: {
             message: {
@@ -52,13 +39,13 @@ export default async ({ sock, id, m, noTel, sender }) => {
 
                 interactiveMessage: proto.Message.InteractiveMessage.create({
                     body: proto.Message.InteractiveMessage.Body.create({
-                        text: "Tekan tombol untuk melihat daftar AI yang tersedia"
+                        text: "Pilih mini game sing pengen dicoba"
                     }),
                     footer: proto.Message.InteractiveMessage.Footer.create({
                         text: `©Little Kanata || Roidev`
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
-                        title: ``
+                        title: `Daftar Mini Games`
                     }),
                     gifPlayback: true,
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
@@ -85,9 +72,10 @@ export default async ({ sock, id, m, noTel, sender }) => {
             }
         }
     });
-    console.log(msghhhhhhhhhhhhhhhhhhh)
 
-    await sock.relayMessage(id, msghhhhhhhhhhhhhhhhhhh.message, {
-        messageId: msghhhhhhhhhhhhhhhhhhh.key.id
+    console.log(msgMiniGames)
+
+    await sock.relayMessage(id, msgMiniGames.message, {
+        messageId: msgMiniGames.key.id
     });
 }

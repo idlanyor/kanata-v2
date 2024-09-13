@@ -16,3 +16,11 @@ export const skizo = async (url, config = {}) => {
         throw error;
     }
 };
+export const skizoGame = async (url, config = {}) => {
+    try {
+        return await axiosInstance.get(`game/${url}`, config);
+    } catch (error) {
+        console.error('Error in skizo request:', error);
+        throw error;
+    }
+};

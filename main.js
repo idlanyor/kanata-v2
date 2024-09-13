@@ -71,41 +71,40 @@ async function startBot() {
         sock.ev.on('messages.upsert', async chatUpdate => {
             try {
                 let m = chatUpdate.messages[0];
+                // console.log(JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id)
                 if (m.message && m.message.interactiveResponseMessage) {
-                    const chat = await clearMessages(m);
-                    if (!chat) return;
-
                     let parsedMsg, sender, id, quotedMessageId, noTel;
-                    if (chat.chatsFrom === "private") {
-                        parsedMsg = chat.message;
-                        sender = chat.pushName || chat.remoteJid;
-                        id = chat.remoteJid;
-                        noTel = chat.remoteJid;
+                    if (m.key.remoteJid.endsWith("g.us")) {
+                        parsedMsg = m.message?.conversation.trim();
+                        sender = m.pushName || m.key.remoteJid;
+                        id = m.key.remoteJid;
+                        noTel = m.key.remoteJid;
                         quotedMessageId = m;
-                    } else if (chat.chatsFrom === "group") {
-                        console.log(chat);
-                        parsedMsg = chat.participant.message;
-                        noTel = chat.participant.number;
-                        sender = chat.participant.pushName || chat.participant.number;
-                        id = chat.remoteJid;
+                    } else {
+                        // console.log(chat);
+                        parsedMsg = m.message?.conversation.trim()
+                        noTel = m.key.remoteJid;
+                        sender = m.pushName || m.participant.number;
+                        id = m.key.remoteJid;
                         quotedMessageId = m;
                     }
                     // 
-                    const pesan = parsedMsg.split(' ');
+                    const { id: cmdFromlist } = JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
+                    const pesan = cmdFromlist.split(' ');
                     const cmd = pesan[0].toLowerCase();
                     const psn = pesan.slice(1).join(' ');
                     const pluginsDir = path.join(__dirname, 'plugins');
                     const pluginFiles = findJsFiles(pluginsDir);
                     const plugins = {};
+                    let caption = ""
                     for (const file of pluginFiles) {
                         const pluginName = path.basename(file, '.js');
                         const { default: plugin } = await import(pathToFileURL(file).href);
                         plugins[pluginName] = plugin;
                     }
-                    const { id: cmdFromlist } = JSON.parse(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)
-                    console.log(cmdFromlist)
-                    if (plugins[cmdFromlist]) {
-                        await plugins[cmdFromlist]({ sock, m, id, psn, sender, noTel, caption });
+                    console.log(cmd)
+                    if (plugins[cmd]) {
+                        await plugins[cmd]({ sock, m, id, psn, sender, noTel, caption });
                     }
                 }
                 // console.log(m.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)

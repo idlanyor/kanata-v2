@@ -3,45 +3,48 @@ const { generateWAMessageFromContent, proto } = pkg;
 
 export default async ({ sock, id, m, noTel, sender }) => {
     let sections = [{
-        title: 'List Artificial Intelligence',
+        title: 'List Downloader Tools',
         rows: [
             {
-                title: 'GPT3.5 - Skizotech',
-                id: `ai`
+                title: 'Tiktok Downloader by Url',
+                id: `td`
             },
             {
-                title: 'GPT Turbo V2 - Skizotech',
-                id: `ai2`
+                title: 'Tiktok Audio Downloader by Url',
+                id: `tmd`
             },
             {
-                title: 'Gemini - Google',
-                id: `gemini`
+                title: 'Instagram Video Downloader by Url',
+                id: `igv`
             },
             {
-                title: 'Mixtral - Official',
-                id: `mixtral`
+                title: 'Instagram Picture Downloader by Url',
+                id: `igp`
             },
             {
-                title: 'Llama3 Meta - Groq',
-                id: `llama`
+                title: 'Download Youtube Video by Url',
+                id: `yd`
             },
             {
-                title: 'Mistral - Groq',
-                id: `mistral`
+                title: 'Play Youtube Audio by Query',
+                id: `yp`
             },
             {
-                title: 'Gemma - Groq',
-                id: `gemma`
+                title: 'Play Youtube Video by Query',
+                id: `yv`
             },
-
+            {
+                title: 'Download Youtube Music by Url',
+                id: `ymd`
+            },
         ]
     }]
 
     let listMessage = {
-        title: 'List Menu Kanata',
+        title: 'List Menu Downloader',
         sections
     };
-    let msghhhhhhhhhhhhhhhhhhh = generateWAMessageFromContent(m.chat, {
+    let msgDownloader = generateWAMessageFromContent(m.chat, {
 
         viewOnceMessage: {
             message: {
@@ -52,13 +55,13 @@ export default async ({ sock, id, m, noTel, sender }) => {
 
                 interactiveMessage: proto.Message.InteractiveMessage.create({
                     body: proto.Message.InteractiveMessage.Body.create({
-                        text: "Tekan tombol untuk melihat daftar AI yang tersedia"
+                        text: "Tekan tombol kanggo milih downloader sing pengen"
                     }),
                     footer: proto.Message.InteractiveMessage.Footer.create({
                         text: `©Little Kanata || Roidev`
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
-                        title: ``
+                        title: `Daftar Downloader`
                     }),
                     gifPlayback: true,
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
@@ -85,9 +88,10 @@ export default async ({ sock, id, m, noTel, sender }) => {
             }
         }
     });
-    console.log(msghhhhhhhhhhhhhhhhhhh)
 
-    await sock.relayMessage(id, msghhhhhhhhhhhhhhhhhhh.message, {
-        messageId: msghhhhhhhhhhhhhhhhhhh.key.id
+    console.log(msgDownloader)
+
+    await sock.relayMessage(id, msgDownloader.message, {
+        messageId: msgDownloader.key.id
     });
 }

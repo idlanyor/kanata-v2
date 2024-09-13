@@ -1,20 +1,21 @@
-import { generateWAMessageFromContent, proto } from "@whiskeysockets/baileys";
+import pkg, { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
+const { proto } = pkg;
 import { ytsearch } from "../../lib/youtube.js";
 
 let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg'
 const ytSearchResult = async (query) => {
     const hasilPencarian = await ytsearch(query);
     let sections = [{
-        title: namebot,
+        title: "Little Kanata",
         highlight_label: 'start chats',
         rows: [{
-            header: namebot,
+            header: "Little Kanata",
             title: "Menu",
             description: `kembali ke menu !`,
             id: '.menu'
         },
         {
-            header: namebot,
+            header: "Little Kanata",
             title: "Owner Bot",
             description: "Owner bot Little Kanata",
             id: '.owner'
@@ -26,12 +27,12 @@ const ytSearchResult = async (query) => {
             rows: [{
                 title: "Get Video",
                 description: `${hasil.title}`,
-                id: `.ytmp4 ${hasil.url}`
+                id: `yd ${hasil.url}`
             },
             {
                 title: "Get Audio",
                 description: `${hasil.title}`,
-                id: `.ytmp3 ${hasil.url}`
+                id: `ymd ${hasil.url}`
             }]
         })
     })
@@ -69,15 +70,11 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
                         buttons: [
                             {
                                 "name": "single_select",
-                                "buttonParamsJson": JSON.stringify(ytSearchResult(psn))
+                                "buttonParamsJson": JSON.stringify(await ytSearchResult(psn, sender))
                             },
                             {
                                 "name": "quick_reply",
-                                "buttonParamsJson": "{\"display_text\":\"Pemilik bot\",\"id\":\".owner\"}"
-                            },
-                            {
-                                "name": "cta_url",
-                                "buttonParamsJson": `{"display_text":"Tiktok  🌐","url":"https://www.tiktok.com/@iroygganz?_t=8mHp0W1jmwS&_r=1","merchant_url":"https://www.tiktok.com/@iroygganz?_t=8mHp0W1jmwS&_r=1"}`
+                                "buttonParamsJson": "{\"display_text\":\"Owner bot\",\"id\":\".owner\"}"
                             }
                         ],
                     })
