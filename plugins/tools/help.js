@@ -95,19 +95,7 @@ export default async ({ sock, id, m, noTel, sender }) => {
             }
         }
     }, {
-        quoted: {
-            key: {
-                remoteJid: '0@s.whatsapp.net',
-                participant: '0@s.whatsapp.net'
-            },
-            message: {
-                newsletterAdminInviteMessage: {
-                    newsletterJid: '120363302865191524@newsletter',
-                    newsletterName: 'Kanata Bot',
-                    caption: sender
-                }
-            }
-        }
+        quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: "0@s.whatsapp.net" }, message: { conversation: sender } }
     });
     console.log(kanata)
 

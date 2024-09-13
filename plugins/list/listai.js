@@ -1,6 +1,5 @@
 import pkg from '@whiskeysockets/baileys';
-const { generateWAMessageFromContent, prepareWAMessageMedia, proto } = pkg;
-import { helpMessage } from '../../helper/help.js'
+const { generateWAMessageFromContent, proto } = pkg;
 
 export default async ({ sock, id, m, noTel, sender }) => {
     let sections = [{
