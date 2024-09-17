@@ -1,4 +1,5 @@
 import { helpMessage } from '../../helper/help.js'
+export const description = "List All Menu Sederhana";
 
 export default async ({ sock, id, m, noTel, sender, psn }) => {
     const { caption } = await helpMessage()

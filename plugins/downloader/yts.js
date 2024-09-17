@@ -1,18 +1,20 @@
 import pkg, { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 const { proto } = pkg;
 import { ytsearch } from "../../lib/youtube.js";
-export const description = "Cari Video dari *Youtube*";
 
-let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg'
+export const description = "Cari Video dari *YouTube*";
+
+let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg';
+
 const ytSearchResult = async (query) => {
     const hasilPencarian = await ytsearch(query);
     let sections = [{
         title: "Little Kanata",
-        highlight_label: 'start chats',
+        highlight_label: 'Start Chats',
         rows: [{
             header: "Little Kanata",
             title: "Menu",
-            description: `kembali ke menu !`,
+            description: `Kembali ke menu!`,
             id: '.menu'
         },
         {
@@ -21,34 +23,38 @@ const ytSearchResult = async (query) => {
             description: "Owner bot Little Kanata",
             id: '.owner'
         }]
-    }]
+    }];
+
     hasilPencarian.forEach((hasil) => {
         sections.push({
             title: hasil.title,
             rows: [{
-                title: "Get Video",
+                title: "Get Video 🎥",
                 description: `${hasil.title}`,
                 id: `yd ${hasil.url}`
             },
             {
-                title: "Get Audio",
+                title: "Get Audio 🎵",
                 description: `${hasil.title}`,
                 id: `ymd ${hasil.url}`
             }]
-        })
-    })
+        });
+    });
 
     let listMessage = {
-        title: 'Klik disini! ',
+        title: '🔍 Hasil Pencarian YouTube',
         sections
     };
-    return listMessage
+    return listMessage;
 }
 
-
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    if (psn == "") return sock.sendMessage(id, { text: "Mau cari apa?\n ketik yts *<query>*\nContoh : *yts himawari*" })
-    let roy = `*Powered By Little Kanata*\nmenampilkan hasil pencarian untuk : "${psn}", pilih di bawah ini sesuai format yang Kamu inginkan. 🍿`
+    if (psn == "") {
+        return sock.sendMessage(id, { text: "🔎 Mau cari apa?\nKetik *yts <query>*\nContoh: *yts himawari*" });
+    }
+
+    let roy = `*Powered By Little Kanata*\nMenampilkan hasil pencarian untuk: "${psn}", pilih di bawah ini sesuai format yang Kamu inginkan. 🍿`;
+    
     let msg = generateWAMessageFromContent(m.chat, {
         viewOnceMessage: {
             message: {
@@ -65,7 +71,8 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
                         subtitle: sender,
-                        hasMediaAttachment: true, ...(await prepareWAMessageMedia({ image: { url: image } }, { upload: sock.waUploadToServer }))
+                        hasMediaAttachment: true, 
+                        ...(await prepareWAMessageMedia({ image: { url: image } }, { upload: sock.waUploadToServer }))
                     }),
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
                         buttons: [
@@ -75,17 +82,16 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
                             },
                             {
                                 "name": "quick_reply",
-                                "buttonParamsJson": "{\"display_text\":\"Owner bot\",\"id\":\".owner\"}"
+                                "buttonParamsJson": "{\"display_text\":\"Owner Bot\",\"id\":\".owner\"}"
                             }
                         ],
                     })
                 })
             }
         }
-    }, { quoted: m })
+    }, { quoted: m });
 
     await sock.relayMessage(id, msg.message, {
         messageId: msg.key.id
-    })
+    });
 };
-

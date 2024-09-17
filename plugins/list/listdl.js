@@ -1,51 +1,53 @@
 import pkg from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
 
+export const description = "📥 *List Downloader Tools* 📥";
+
 export default async ({ sock, id, m, noTel, sender }) => {
     let sections = [{
-        title: 'List Downloader Tools',
+        title: '🚀 *Downloader Tools* 🚀',
         rows: [
             {
-                title: 'Tiktok Downloader by Url',
+                title: '🎵 *Tiktok Video Downloader by URL*',
                 id: `td`
             },
             {
-                title: 'Tiktok Audio Downloader by Url',
+                title: '🎶 *Tiktok Audio Downloader by URL*',
                 id: `tmd`
             },
             {
-                title: 'Instagram Video Downloader by Url',
+                title: '📹 *Instagram Video Downloader by URL*',
                 id: `igv`
             },
             {
-                title: 'Instagram Picture Downloader by Url',
+                title: '🖼 *Instagram Picture Downloader by URL*',
                 id: `igp`
             },
             {
-                title: 'Download Youtube Video by Url',
+                title: '📺 *Download Youtube Video by URL*',
                 id: `yd`
             },
             {
-                title: 'Play Youtube Audio by Query',
+                title: '🎧 *Play Youtube Audio by Query*',
                 id: `yp`
             },
             {
-                title: 'Play Youtube Video by Query',
+                title: '📼 *Play Youtube Video by Query*',
                 id: `yv`
             },
             {
-                title: 'Download Youtube Music by Url',
+                title: '🎤 *Download Youtube Music by URL*',
                 id: `ymd`
             },
         ]
-    }]
+    }];
 
     let listMessage = {
-        title: 'List Menu Downloader',
+        title: '📥 *Downloader Menu* 📥',
         sections
     };
-    let msgDownloader = generateWAMessageFromContent(m.chat, {
 
+    let msgDownloader = generateWAMessageFromContent(m.chat, {
         viewOnceMessage: {
             message: {
                 "messageContextInfo": {
@@ -55,13 +57,13 @@ export default async ({ sock, id, m, noTel, sender }) => {
 
                 interactiveMessage: proto.Message.InteractiveMessage.create({
                     body: proto.Message.InteractiveMessage.Body.create({
-                        text: "Tekan tombol kanggo milih downloader sing pengen"
+                        text: "📥 *Pilih downloader sing pengen karo pencet tombol ing ngisor iki* 📥"
                     }),
                     footer: proto.Message.InteractiveMessage.Footer.create({
                         text: `©Little Kanata || Roidev`
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
-                        title: `Daftar Downloader`
+                        title: `🛠 *Downloader Tools* 🛠`
                     }),
                     gifPlayback: true,
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
@@ -89,9 +91,9 @@ export default async ({ sock, id, m, noTel, sender }) => {
         }
     });
 
-    console.log(msgDownloader)
+    console.log(msgDownloader);
 
     await sock.relayMessage(id, msgDownloader.message, {
         messageId: msgDownloader.key.id
     });
-}
+};

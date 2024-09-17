@@ -1,6 +1,7 @@
 import pkg from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
 import { helpMessage } from '../../helper/help.js'
+export const description = "List All Menu";
 
 export default async ({ sock, id, m, noTel, sender }) => {
     const { caption, plugins } = await helpMessage()

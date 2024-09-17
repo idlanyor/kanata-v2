@@ -1,4 +1,5 @@
 import { registerUser } from "../../helper/database.js"
+export const description = "Register User";
 
 export default async () => {
     if (psn === '') {

@@ -1,28 +1,34 @@
 import config from "../../config.js";
-import { skizo } from "../../helper/skizo.js";
 import { uploadGambar2 } from "../../helper/uploader.js";
 
-export const description = "Remini untuk mengubah gambar burik menjadi HD";
-// sticker
-export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
+// Deskripsi perintah
+export const description = "✨ Remini: Ubah gambar burik menjadi HD! 📸";
 
+// Fungsi utama
+export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
+    // Jika gambar dalam bentuk buffer
     if (Buffer.isBuffer(attf)) {
         try {
-            const api = await fetch(`https://skizo.tech/api/remini?apikey=${config.apiHelper.skizotech.apikey}&url=${await uploadGambar2(attf)}`);
-            const image = await api;
-            const { url } = image;
-            // console.log(remini.data)
-            // remini.headers["Content-Type"] = "buffer"
-            await sock.sendMessage(id, { image: { url }, caption: '📷 HD/Remini berhasil' }, { quoted: m });
+            // Mengunggah gambar dan mengubah menjadi HD menggunakan API Remini
+            const imageUrl = await uploadGambar2(attf);
+            const response = await fetch(`https://skizo.tech/api/remini?apikey=${config.apiHelper.skizotech.apikey}&url=${imageUrl}`);
+            const { url } = await response.json();
+
+            // Mengirimkan gambar hasil yang sudah diubah ke HD
+            await sock.sendMessage(id, {
+                image: { url },
+                caption: '📷 Remini berhasil! Gambar telah diubah ke kualitas HD 🎉'
+            }, { quoted: m });
 
         } catch (error) {
-            await sock.sendMessage(id, { text: 'Terjadi kesalahan, silakan coba lagi.\n' + error });
-            throw error
+            // Penanganan kesalahan dengan pesan lebih informatif
+            await sock.sendMessage(id, { text: `⚠️ Terjadi kesalahan saat memproses gambar. Coba lagi nanti ya!\n\nError: ${error.message}` });
         }
-        return
+        return;
     }
+
+    // Cek jika tidak ada gambar yang dikirim atau tidak dalam format yang benar
     if (!m.message?.conversation && !m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage) {
-        return
-    };
-    await sock.sendMessage(id, { text: 'Kirim/reply gambar dengan caption remini' });
+        await sock.sendMessage(id, { text: 'Kirim atau balas gambar dengan caption *remini* untuk mengubahnya menjadi HD.' });
+    }
 };

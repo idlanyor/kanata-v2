@@ -1,64 +1,64 @@
 import pkg from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
 
+export const description = "📜 *List Artificial Intelligence* 📜";
+
 export default async ({ sock, id, m, noTel, sender }) => {
     let sections = [{
-        title: 'List Artificial Intelligence',
+        title: '🤖 *Artificial Intelligence*',
         rows: [
             {
-                title: 'GPT3.5 - Skizotech',
+                title: '🤖 GPT3.5 - Skizotech',
                 id: `ai`
             },
             {
-                title: 'GPT Turbo V2 - Skizotech',
+                title: '⚡ GPT Turbo V2 - Skizotech',
                 id: `ai2`
             },
             {
-                title: 'Gemini - Google',
+                title: '🌐 Gemini - Google',
                 id: `gemini`
             },
             {
-                title: 'Mixtral - Official',
+                title: '🚀 Mixtral - Official',
                 id: `mixtral`
             },
             {
-                title: 'Llama3 Meta - Groq',
+                title: '🦙 Llama3 Meta - Groq',
                 id: `llama`
             },
             {
-                title: 'Mistral - Groq',
+                title: '🌲 Mistral - Groq',
                 id: `mistral`
             },
             {
-                title: 'Gemma - Groq',
+                title: '💎 Gemma - Groq',
                 id: `gemma`
             },
-
         ]
-    }]
+    }];
 
     let listMessage = {
-        title: 'List Menu Kanata',
+        title: '✨ *Daftar AI Kanata* ✨',
         sections
     };
-    let msghhhhhhhhhhhhhhhhhhh = generateWAMessageFromContent(m.chat, {
 
+    let messageContent = generateWAMessageFromContent(m.chat, {
         viewOnceMessage: {
             message: {
                 "messageContextInfo": {
                     "deviceListMetadata": {},
                     "deviceListMetadataVersion": 2
                 },
-
                 interactiveMessage: proto.Message.InteractiveMessage.create({
                     body: proto.Message.InteractiveMessage.Body.create({
-                        text: "Tekan tombol untuk melihat daftar AI yang tersedia"
+                        text: "🔍 *Pilih AI favoritmu dari daftar di bawah ini!*"
                     }),
                     footer: proto.Message.InteractiveMessage.Footer.create({
                         text: `©Little Kanata || Roidev`
                     }),
                     header: proto.Message.InteractiveMessage.Header.create({
-                        title: ``
+                        title: `🧠 *AI Menu*`
                     }),
                     gifPlayback: true,
                     nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
@@ -85,9 +85,10 @@ export default async ({ sock, id, m, noTel, sender }) => {
             }
         }
     });
-    console.log(msghhhhhhhhhhhhhhhhhhh)
 
-    await sock.relayMessage(id, msghhhhhhhhhhhhhhhhhhh.message, {
-        messageId: msghhhhhhhhhhhhhhhhhhh.key.id
+    console.log(messageContent);
+
+    await sock.relayMessage(id, messageContent.message, {
+        messageId: messageContent.key.id
     });
-}
+};

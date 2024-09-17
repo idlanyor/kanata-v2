@@ -1,17 +1,22 @@
 import { tiktok } from "../../lib/downloader.js";
-export const description = "Downloader Tiktok provided by *Roidev*";
+export const description = "Downloader TikTok provided by *Roidev*";
+
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
-        sock.sendMessage(id, {
-            text: "prefix *td* <url> \n contoh : td https://vt.tiktok.com/ZSgQX6/"
-        })
-        return
+        await sock.sendMessage(id, { 
+            text: "🎬 *Gunakan format:* \n\n`td <url>`\n\nContoh:\n`td https://vt.tiktok.com/ZSgQX6/`" 
+        });
+        return;
     }
     try {
-        await sock.sendMessage(id, { text: 'Processing, please wait...' });
+        await sock.sendMessage(id, { text: '🔄 *Processing...* Mohon tunggu sebentar...' });
         let result = await tiktok(psn);
-        await sock.sendMessage(id, { video: { url: result.video }, caption: result.title });
+        await sock.sendMessage(id, { 
+            video: { url: result.video }, 
+            caption: `📹 *Video TikTok berhasil diunduh!*\n\n📄 *Title:* ${result.title}` 
+        });
+
     } catch (error) {
-        await sock.sendMessage(id, { text: error.message });
+        await sock.sendMessage(id, { text: '❌ *Terjadi kesalahan:* \n' + error.message });
     }
 };

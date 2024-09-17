@@ -1,4 +1,4 @@
-import { tebak } from "../../helper/lolhuman.js";
+import { tebak } from "../../helper/skizotech.js";
 import { tebakSession } from "../../lib/tebak/index.js";
 
 export const description = "Tebak Gambar";

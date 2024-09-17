@@ -1,17 +1,21 @@
 import { yutub } from "../../lib/downloader.js";
-export const description = "Youtube Video Downloader provided by *Roidev*";
+export const description = "YouTube Video Downloader provided by *Roidev*";
+
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
-        sock.sendMessage(id, { text: 'prefix *yd* <url> \n contoh : yd https://youtu.be/7P8tR5cJXk0' })
+        await sock.sendMessage(id, { 
+            text: '📹 *Gunakan format:* \n\n`yd <url>`\n\nContoh:\n`yd https://youtu.be/7P8tR5cJXk0`' 
+        });
+        return;
     }
     try {
-        await sock.sendMessage(id, { text: 'Processing, please wait...' });
-        let result = await yutub(psn)
-        caption = '*Youtube Video Result*'
-        caption += '\nTitle :' + `*${result.title}*`
-        caption += '\nChannel :' + `*${result.channel}*`
+        await sock.sendMessage(id, { text: '🔄 *Processing...* Mohon tunggu sebentar...' });
+        let result = await yutub(psn);
+        caption = '*🎬 Hasil Video YouTube:*'
+        caption += '\n📛 *Title:* ' + `*${result.title}*`;
+        caption += '\n📺 *Channel:* ' + `*${result.channel}*`;
         await sock.sendMessage(id, { video: { url: result.video }, caption });
     } catch (error) {
-        await sock.sendMessage(id, { text: error.message });
+        await sock.sendMessage(id, { text: '❌ *Terjadi kesalahan:* \n' + error.message });
     }
 };
