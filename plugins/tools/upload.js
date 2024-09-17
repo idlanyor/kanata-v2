@@ -1,11 +1,26 @@
-import { getMedia } from "../../helper/mediaMsg.js";
+import { uploadGambar2 } from "../../helper/uploader.js";
 
-export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
-    if (m.message.imageMessage || (m.message.extendedTextMessage && m.message.extendedTextMessage.contextInfo && m.message.extendedTextMessage.contextInfo.quotedMessage && m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage)) {
-        let imageMessage = m.message.imageMessage || (m.message.extendedTextMessage && m.message.extendedTextMessage.contextInfo && m.message.extendedTextMessage.contextInfo.quotedMessage && m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage);
-        let cmd = (m.message.imageMessage && m.message.imageMessage.caption) || (m.message.extendedTextMessage && m.message.extendedTextMessage.contextInfo && m.message.extendedTextMessage.contextInfo.quotedMessage && m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage && m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage.caption);
-        console.log('buffer', imageMessage);
-        console.log('caption', cmd);
+export const description = "Upload Image";
+
+export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
+
+    if (Buffer.isBuffer(attf)) {
+        try {
+            await sock.sendMessage(id, { text: `Upload berhasil,ini Linknya puh : ${await uploadGambar2(attf)}` }, { quoted: m });
+        } catch (error) {
+            console.log('Error creating sticker:', error);
+            await sock.sendMessage(id, { text: `Error creating sticker\n Reason :\n ${error}` });
+        }
+
+        return
     }
+    // else {
+    //   console.log('Media data not found');
+    if (!m.message?.conversation && !m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage) {
+        return
+    };
+    //   await sock.sendMessage(id, { text: 'Kirim/reply gambar dengan caption s' });
+    // }
+    await sock.sendMessage(id, { text: 'Kirim/reply gambar dengan caption *upload*' });
 
 };

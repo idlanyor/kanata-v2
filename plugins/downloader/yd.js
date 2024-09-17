@@ -1,4 +1,5 @@
 import { yutub } from "../../lib/downloader.js";
+export const description = "Youtube Video Downloader provided by *Roidev*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, { text: 'prefix *yd* <url> \n contoh : yd https://youtu.be/7P8tR5cJXk0' })

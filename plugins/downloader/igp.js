@@ -1,5 +1,5 @@
 import { meta } from "../../lib/downloader.js";
-
+export const description = "Downloader Instagram Picture provided by *Roidev*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if(psn === '') {
         sock.sendMessage(id, { text: 'prefix *idp* <url> \n contoh : idp https://www.instagram.com/p/CMd5Hr5Dx-7/?igshid=1jg9b5j7qk7t7' })

@@ -1,6 +1,7 @@
 import pkg, { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 const { proto } = pkg;
 import { ytsearch } from "../../lib/youtube.js";
+export const description = "Cari Video dari *Youtube*";
 
 let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg'
 const ytSearchResult = async (query) => {

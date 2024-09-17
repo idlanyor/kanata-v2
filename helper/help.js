@@ -63,7 +63,7 @@ export async function helpMessage() {
     const plugins = await loadPlugins(pluginsDir);
     // console.log(plugins)
 
-    let caption = "";
+    let caption = "𝗛𝗮𝗶,𝗮𝗸𝘂 𝗞𝗮𝗻𝗮𝘁𝗮,𝗮𝘀𝗶𝘀𝘁𝗲𝗻 𝘄𝗵𝗮𝘁𝘀𝗮𝗽𝗽 𝘆𝗮𝗻𝗴 𝘀𝗶𝗮𝗽 𝗺𝗲𝗺𝗯𝗮𝗻𝘁𝘂𝗺𝘂,𝗯𝗲𝗿𝗶𝗸𝘂𝘁 𝗶𝗻𝗶 𝗱𝗮𝗳𝘁𝗮𝗿 𝗽𝗲𝗿𝗶𝗻𝘁𝗮𝗵 𝘆𝗮𝗻𝗴 𝗯𝗶𝘀𝗮 𝗮𝗸𝘂 𝗹𝗮𝗸𝘂𝗶𝗻  :\n";
 
     for (const zakia in plugins) {
         // Nambah header folder
@@ -72,11 +72,12 @@ export async function helpMessage() {
         // Nambah file-file ning folder kasebut
         plugins[zakia].forEach(plugin => {
             const command = plugin.file.replace('.js', ''); // Ngilangke .js saka jeneng file
-            caption += `> ${command} - ${plugin.description}\n`;
+            caption += `- *${command}* - ${plugin.description}\n`;
         });
 
         caption += '\n';
     }
+    caption += 'ketik *help* untuk tampilan list ';
 
     return { caption, plugins };
 }

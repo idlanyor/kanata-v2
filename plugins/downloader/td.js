@@ -1,5 +1,5 @@
 import { tiktok } from "../../lib/downloader.js";
-
+export const description = "Downloader Tiktok provided by *Roidev*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {

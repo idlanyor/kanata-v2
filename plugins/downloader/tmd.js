@@ -1,4 +1,5 @@
 import { tiktok } from "../../lib/downloader.js";
+export const description = "Downloader Tiktok Audio provided by *Roidev*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, { text: 'prefix *tmd* <url> \n contoh : tmd https://vt.tiktok.com/ZSgQX6/' })

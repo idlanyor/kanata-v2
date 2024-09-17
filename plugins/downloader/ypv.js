@@ -1,7 +1,6 @@
 import { ytPlay } from '../../lib/youtube.js'
 
-export const description = 'Putar dan Download Audio dari *Youtube*'
-
+export const description = 'Putar dan Download Video dari *Youtube*'
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     try {
         if (psn === '') {

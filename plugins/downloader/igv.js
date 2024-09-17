@@ -1,5 +1,5 @@
 import { meta } from "../../lib/downloader.js";
-
+export const description = "Downloader Instagram Video provided by *Roidev*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if(psn === '') {
         await sock.sendMessage(id, { text: 'prefix *idv* <url> \n contoh : idv https://www.instagram.com/reels/CMd5Hr5Dx-7/?igshid=1jg9b5j7qk7t7' })
