@@ -1,5 +1,6 @@
 import { tebak } from "../../helper/lolhuman.js";
 import { tebakSession } from "../../lib/tebak/index.js";
+export const description = "Mini Game Susun Kata";
 const susun = async (id, sock) => {
     try {
         const response = await tebak('susunkata');

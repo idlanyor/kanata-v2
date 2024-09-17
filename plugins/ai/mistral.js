@@ -1,11 +1,11 @@
-import { mistral } from "../../lib/ai.js";
-
+import { llamaGroq, mistral } from "../../lib/ai.js";
+export const description = "AI Mixtral provided by *Groq x Mixtral*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {
-            text: "prefix *gemini* Tanyakan sesuatu kepada Gemini\n contoh : gemini siapa presiden indonesia saat ini"
+            text: "prefix *mistral* Tanyakan sesuatu kepada Mistral\n contoh : mistral siapa presiden indonesia saat ini"
         })
         return
     }
-    await sock.sendMessage(id, { text: await mistral(psn) });
+    await sock.sendMessage(id, { text: await llamaGroq(psn) });
 };

@@ -1,9 +1,9 @@
 import { mixtralGroq } from "../../lib/ai.js";
-
+export const description = "AI Mixtral7B provided by *Mixtral AI*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {
-            text: "Tanyakan sesuatu kepada Gemini\n prefix *gemini* \n contoh : gemini siapa presiden indonesia saat ini"
+            text: "Tanyakan sesuatu kepada mixtral\n prefix *Mixtral* \n contoh : mixtral siapa presiden indonesia saat ini"
         })
         return
     }

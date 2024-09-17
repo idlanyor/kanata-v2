@@ -1,6 +1,7 @@
 import { tebak } from "../../helper/lolhuman.js";
 import { tebakSession } from "../../lib/tebak/index.js";
 import { maskSentence } from "../../helper/word.js";
+export const description = "Teka Teki Sulit Caklontong";
 const caklontong = async (id, sock) => {
     try {
         const response = await tebak('caklontong');

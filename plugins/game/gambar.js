@@ -1,6 +1,8 @@
 import { tebak } from "../../helper/lolhuman.js";
 import { tebakSession } from "../../lib/tebak/index.js";
 
+export const description = "Tebak Gambar";
+
 const gambar = async (id, sock) => {
     try {
         const response = await tebak('gambar');

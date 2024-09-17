@@ -1,4 +1,5 @@
 import { gemini } from "../../lib/ai.js";
+export const description = "AI Gemini provided by *Google Inc*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {

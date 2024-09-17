@@ -1,100 +1,88 @@
-// import { quotes } from "../lib/random.js";
-// import { getUser } from "./database.js";
+import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
 
-export async function helpMessage(sender) {
-    // try {
-    //     let user = await getUser(id);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-    //     // Periksa apakah user ada atau tidak
-    //     if (!user) {
-    //         user = {
-    //             id: id,
-    //             userName: sender,
-    //             isPrem: false,
-    //             points: 0,
-    //             credit: 0
-    //         };
-    //     }
+// Mundur sak level saka folder helper kanggo akses plugins
+const pluginsDir = path.join(__dirname, '../plugins');
 
-    //         function cek() {
-    //             return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
-    // 🗝 ID: ${user.id || id}
-    // 📝 NAMA: ${user.userName || sender}
-    // ✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
-    // 💯 POIN: ${user.points || 0}
-    // 💸 CREDIT: ${user.credit || 0}`;
-    //         }
+// Fungsi kanggo nggoleki kabeh file .js lan ngelompokke miturut subfolder
+async function loadPlugins(dir) {
+    let plugins = {};
 
-    // ${cek()}
-    let caption = `
-*Kanata Bot*
-_by Idlanyor_\n\n
+    const list = fs.readdirSync(dir);
 
-Hai *${sender}*
-Here My Command List
+    for (const file of list) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
 
-❏┄┅━┅┄〈 〘 Artificial Intelligence 〙
-> gm - Chat With Gemini AI
-> mistral - Chat With Mistral AI
-> mixtral - Chat With Mixtral AI
-> llama - Chat With Llama AI
-> gemma - Chat With Gemma AI
+        if (stat && stat.isDirectory()) {
 
-❏┄┅━┅┄〈 〘 Downloader 〙
-> td - Tiktok Downloader by Url
-> tmd - Tiktok Audio downloader by Url
-> igv - Instagram Video Downloader by Url
-> igp - Instagram Picture Downloader by Url
-> yd - Download Youtube video by url
-> yp - Play Youtube audio by query
-> yv - Play Youtube video by query
-> ymd - Download Youtube music by url\n
 
-❏┄┅━┅┄〈 〘 General 〙
-> s - Stiker(send image with caption 's')
-> rem - remove background from image
+            // Yen iku folder, rekursif golek file .js ning subfolder
+            const subPlugins = await loadPlugins(filePath);
+            const folderName = path.basename(filePath); // Nentokake jeneng folder
+            if (folderName === 'hidden') {
+                // Yen iku folder sing dikecualikan, skip
+                console.log(`Subfolder ${folderName} dikecualikan`);
+                continue;
+            }
+            if (!plugins[folderName]) {
+                plugins[folderName] = [];
+            }
+            // Gabungake subPlugins ing folder utama
+            Object.entries(subPlugins).forEach(([subFolder, pluginFiles]) => {
+                if (!plugins[subFolder]) {
+                    plugins[subFolder] = [];
+                }
+                plugins[subFolder].push(...pluginFiles);
+            });
+        } else if (file.endsWith('.js')) {
+            // Yen iku file .js, load file
+            const { default: plugin, description } = await import(pathToFileURL(filePath).href);
+            const folderName = path.basename(path.dirname(filePath)); // Nentokake folder induk
+            if (!plugins[folderName]) {
+                plugins[folderName] = [];
+            }
+            // Tambahake info file lan description
+            plugins[folderName].push({
+                subfolder: folderName, // Jeneng subfolder
+                file: file, // Nama file
+                description: description || 'Tidak ada deskripsi' // Deskripsi
+            });
+        }
+    }
 
-❏┄┅━┅┄〈 〘 Random 〙
-> cerpen - Random cerpen from creative author
-> kisahnabi <nama nabi> - Random 25 kisah nabi
-
-❏┄┅━┅┄〈 〘 Mini Game 〙
-> gambar - tebak gambar
-> bendera - tebak bendera
-> jenaka - tebak kata jenaka
-> lontong - teka teki sulit
-
-❏┄┅━┅┄〈 〘 Misc. 〙
-> owner - nampilin nomor owner bot
-> ping - buat ngecek kecepatan respons bot
-
-`;
-
-    // $//{//await quotes()}
-    // console.log(caption);
-    return caption;
-
-    // } catch (error) {
-    //     console.log(error);
-    //     return "Terjadi kesalahan saat mengambil data pengguna.";
-    // }
+    return plugins;
 }
 
-// export const memberIngfo = (id) => {
-//     try {
-//         let user = getUser(id);
+// Fungsi kanggo generate help message otomatis
+export async function helpMessage() {
+    const plugins = await loadPlugins(pluginsDir);
+    // console.log(plugins)
 
-//         if (!user) {
-//             return 'Anda belum terdaftar'
-//         }
+    let caption = "";
 
-//         return `❏┄┅━┅┄〈 〘 Ingfo Member 〙
-// 🗝 ID: ${user.id || id}
-// 📝 NAMA: ${user.userName || sender}
-// ✨ STATUS: ${user.isPrem ? 'Premium' : 'Not Premium'}
-// 💯 POIN: ${user.points || 0}
-// 💸 CREDIT: ${user.credit || 0}`;
-//     } catch (e) {
-//         return "Terjadi kesalahan saat mengambil data pengguna.";
-//     }
-// }
+    for (const zakia in plugins) {
+        // Nambah header folder
+        caption += `❏┄┅━┅┄〈 〘 ${zakia.toUpperCase()} 〙\n`;
+
+        // Nambah file-file ning folder kasebut
+        plugins[zakia].forEach(plugin => {
+            const command = plugin.file.replace('.js', ''); // Ngilangke .js saka jeneng file
+            caption += `> ${command} - ${plugin.description}\n`;
+        });
+
+        caption += '\n';
+    }
+
+    return { caption, plugins };
+}
+
+// Contoh panggilan fungsi helpMessage kanggo tes
+// (async () => {
+//     const { caption } = await helpMessage();
+//     console.log(caption);
+// })();

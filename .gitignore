@@ -4,8 +4,11 @@ package-lock.json
 store-*.json
 config.js
 config.global.js
-multifile.js
 *.mp4
 *.png
 *.jpeg
 db.*
+*.zip
+*.tar.gz
+*.rar
+*.html

@@ -1,4 +1,5 @@
 import { dalle3 } from "../../lib/ai.js";
+export const description = "AI Image Generator provided by *SkizoTech*";
 
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if(psn ==""){

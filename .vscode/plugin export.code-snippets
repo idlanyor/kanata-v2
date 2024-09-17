@@ -19,7 +19,7 @@
 		"scope": "javascript",
 		"prefix": "eeee",
 		"body": [
-			"export default async ({ sock, m, id, psn, sender, noTel, caption }) => {",
+			"export default async ({ sock, m, id, psn, sender, noTel, caption,attf }) => {",
 			"\t$1",
 			"};",
 			"$2" // Cursor akhir
