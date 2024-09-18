@@ -15,7 +15,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
             // Mengirimkan gambar hasil yang sudah diubah ke HD
             await sock.sendMessage(id, {
                 image: { url: response.url },
-                caption: '📷 HD Image berhasil! Gambar telah diubah ke kualitas HD 🎉'
+                caption: '📷 HD Image berhasil! Gambar burikmu telah dikonversi ke kualitas HD 🎉'
             }, { quoted: m });
 
         } catch (error) {

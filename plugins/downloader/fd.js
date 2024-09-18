@@ -1,6 +1,6 @@
 import { meta } from "../../lib/downloader.js";
 export const description = "Downloader Facebook Reels provided by *Roidev*";
-export const handler = ""
+export const handler = "fd"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         await sock.sendMessage(id, {
