@@ -1,6 +1,6 @@
 import { dalle3 } from "../../lib/ai.js";
 export const description = "🎨 *AI Image Generator* disediakan oleh *SkizoTech*";
-
+export const handler = ""
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn.trim() === '') {
         // Pesan ketika query kosong

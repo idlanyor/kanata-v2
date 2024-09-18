@@ -1,10 +1,7 @@
 import config from "../../config.js";
 import { uploadGambar2 } from "../../helper/uploader.js";
-
-// Deskripsi perintah
+export const handler = ""
 export const description = "✨ Remini: Ubah gambar burik menjadi HD! 📸";
-
-// Fungsi utama
 export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
     // Jika gambar dalam bentuk buffer
     if (Buffer.isBuffer(attf)) {

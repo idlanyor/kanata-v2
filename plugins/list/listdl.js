@@ -1,6 +1,6 @@
 import pkg from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
-
+export const handler = ""
 export const description = "📥 *List Downloader Tools* 📥";
 
 export default async ({ sock, id, m, noTel, sender }) => {
