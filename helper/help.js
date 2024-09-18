@@ -41,7 +41,7 @@ async function loadPlugins(dir) {
             });
         } else if (file.endsWith('.js')) {
             // Yen iku file .js, load file
-            const { default: plugin, description } = await import(pathToFileURL(filePath).href);
+            const { default: plugin, description, handler } = await import(pathToFileURL(filePath).href);
             const folderName = path.basename(path.dirname(filePath)); // Nentokake folder induk
             if (!plugins[folderName]) {
                 plugins[folderName] = [];
@@ -50,7 +50,8 @@ async function loadPlugins(dir) {
             plugins[folderName].push({
                 subfolder: folderName, // Jeneng subfolder
                 file: file, // Nama file
-                description: description || 'Tidak ada deskripsi' // Deskripsi
+                handler: handler || 'Belum ada handler', // Deskripsi
+                description: description || 'Belum ada deskripsi', // Deskripsi
             });
         }
     }
@@ -71,7 +72,7 @@ export async function helpMessage() {
 
         // Nambah file-file ning folder kasebut
         plugins[zakia].forEach(plugin => {
-            const command = plugin.file.replace('.js', ''); // Ngilangke .js saka jeneng file
+            const command = plugin.handler; 
             caption += `- *${command}* - ${plugin.description}\n`;
         });
 

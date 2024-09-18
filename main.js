@@ -9,6 +9,7 @@ import path from 'path';
 import chalk from 'chalk';
 import readline from 'readline';
 import { call } from './lib/call.js';
+import { getGroupMetadata } from './helper/group.js';
 
 // Mendefinisikan __dirname untuk ES6
 const __filename = fileURLToPath(import.meta.url);
@@ -57,13 +58,14 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
     let [cmd, ...args] = "";
     [cmd, ...args] = command.split(' ');
     if (command.startsWith('!')) cmd = command.substring(1);
-    console.log(cmd)
+    // console.log(cmd)
     const pluginsDir = path.join(__dirname, 'plugins');
     const plugins = Object.fromEntries(
         await Promise.all(findJsFiles(pluginsDir).map(async file => {
-            const pluginName = path.basename(file, '.js');
-            const { default: plugin } = await import(pathToFileURL(file).href);
-            return [pluginName, plugin];
+            // const pluginName = path.basename(file, '.js');
+            const { default: plugin, handler } = await import(pathToFileURL(file).href);
+            // console.log(handler);
+            return [handler, plugin];
         }))
     );
     if (plugins[cmd]) {
@@ -122,8 +124,12 @@ async function startBot() {
                         await prosesPerintah({ command: parsedMsg, sock, m, id, sender, noTel });
                     }
                 }
+                
                 // console.log(sock.user.id)
-                // sock.groupMetadata(id)
+                // let metadata = await getGroupMetadata({ sock, id });
+                // console.log(metadata)
+                // metadata.announce
+                // console.log(await sock.groupMetadata('120363249874424747@g.us'))
                 // console.log(await sock.fetchStatus(id));
 
                 // sock.groupParticipantsUpdate(id, [...id], 'promote')

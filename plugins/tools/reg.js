@@ -1,6 +1,6 @@
 import { registerUser } from "../../helper/database.js"
 export const description = "Register User";
-export const handler = ""
+export const handler = "reg"
 export default async () => {
     if (psn === '') {
         sock.sendMessage(id, { text: "ketik *reg<spasi>namaKamu*,contoh `reg Roynaldi`" })

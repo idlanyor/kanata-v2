@@ -1,7 +1,7 @@
 import { uploadGambar2 } from "../../helper/uploader.js";
 
 export const description = "📤 *Upload Image* 📤";
-export const handler = ""
+export const handler = "upload"
 export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
 
     if (Buffer.isBuffer(attf)) {

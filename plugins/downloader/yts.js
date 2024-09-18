@@ -1,7 +1,7 @@
 import pkg, { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 const { proto } = pkg;
 import { ytsearch } from "../../lib/youtube.js";
-export const handler = ""
+export const handler = "yts"
 export const description = "Cari Video dari *YouTube*";
 
 let image = 'https://telegra.ph/file/30897fc6b429c59d2a733.jpg';

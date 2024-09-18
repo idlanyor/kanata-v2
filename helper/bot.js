@@ -152,5 +152,6 @@ async function clearMessages(m) {
         return m;
     }
 }
+const sanitizeBotId = botId => botId.split(":")[0] + "@s.whatsapp.net";
 
-export { wabe, clearMessages };
+export { wabe, clearMessages, sanitizeBotId };

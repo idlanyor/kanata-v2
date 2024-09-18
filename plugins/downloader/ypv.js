@@ -1,7 +1,7 @@
 import { ytPlay } from '../../lib/youtube.js';
 
 export const description = 'Putar dan Download Video dari *YouTube*';
-export const handler = ""
+export const handler = "ypv"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     try {
         if (psn === '') {

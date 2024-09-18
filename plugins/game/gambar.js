@@ -1,6 +1,6 @@
 import { tebak } from "../../helper/skizotech.js";
 import { tebakSession } from "../../lib/tebak/index.js";
-export const handler = ""
+export const handler = "gambar"
 export const description = "Tebak Gambar";
 
 const gambar = async (id, sock) => {

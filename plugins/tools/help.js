@@ -1,7 +1,7 @@
 import pkg from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
 import { helpMessage } from '../../helper/help.js'
-export const handler = ""
+export const handler = "menu"
 export const description = "List All Menu";
 export default async ({ sock, id, m, noTel, sender }) => {
     const { caption, plugins } = await helpMessage()
@@ -11,9 +11,9 @@ export default async ({ sock, id, m, noTel, sender }) => {
             title: `❏┄┅━┅┄〈 〘 ${plugin.toUpperCase()} 〙`,
             rows: plugins[plugin].map((command) => {
                 return {
-                    title: command.file.replace('.js', '').toUpperCase(),
+                    title: command.handler.toUpperCase(),
                     description: command.description,
-                    id: `${command.file.replace('.js', '')}`
+                    id: `${command.handler}`
                 }
             })
         })

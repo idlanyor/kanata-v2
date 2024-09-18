@@ -1,7 +1,7 @@
 import { createSticker, StickerTypes } from "wa-sticker-formatter";
 
 export const description = "Sticker maker";
-export const handler = ""
+export const handler = "s"
 export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
   console.log('attribute', m);
 

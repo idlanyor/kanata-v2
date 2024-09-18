@@ -1,6 +1,6 @@
 import { gptSkizo2 } from "../../lib/ai.js";
 export const description = "AI GPT 3.5 Turbo provided by *SkizoTech*";
-export const handler = ""
+export const handler = "ai2"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {

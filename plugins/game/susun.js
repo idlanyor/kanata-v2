@@ -1,7 +1,7 @@
 import { tebak } from "../../helper/skizotech.js";
 import { tebakSession } from "../../lib/tebak/index.js";
 export const description = "Mini Game Susun Kata";
-export const handler = ""
+export const handler = "susun"
 const susun = async (id, sock) => {
     try {
         const response = await tebak('susunkata');

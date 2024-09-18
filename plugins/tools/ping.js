@@ -1,6 +1,6 @@
 import moment from 'moment';
 export const description = "Ping Bot";
-export const handler = ""
+export const handler = "ping"
 const calculatePing = function (timestamp, now) {
     return moment.duration(now - moment(timestamp * 1000)).asSeconds();
 };

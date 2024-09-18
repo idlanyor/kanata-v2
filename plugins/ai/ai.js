@@ -2,10 +2,9 @@ import { gptSkizo } from "../../lib/ai.js";
 
 // Metadata deskripsi perintah
 export const description = "🤖 *AI GPT 3.5* disediakan oleh *SkizoTech*";
-export const handler = ""
+export const handler = "ai"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn.trim() === '') {
-        // Pesan ajakan menggunakan emoji dan gaya yang menarik
         sock.sendMessage(id, {
             text: "🤖 *AI GPT-3.5* Siap Membantu!\n\nGunakan prefix *ai* untuk bertanya apa saja ke AI.\nContoh: _*ai siapa presiden Indonesia saat ini?*_\n\n📝 *Ajukan pertanyaanmu dan biarkan AI memberikan jawabannya!*"
         });

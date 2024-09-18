@@ -1,6 +1,6 @@
 import { llamaGroq, mistral } from "../../lib/ai.js";
 export const description = "AI Mixtral provided by *Groq x Mixtral*";
-export const handler = ""
+export const handler = "mistral"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {
