@@ -16,8 +16,11 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         caption += `\n\n📹 *Judul:* ${result.title}`;
         caption += `\n📺 *Channel:* ${result.channel}`;
         caption += `\n\n⏳ _Video sedang dikirim. Mohon bersabar..._`;
+        const response = await fetch(result.audio);
+        const arrBuffer = await response.arrayBuffer()
+        console.log(Buffer.from(arrBuffer))
 
-        await sock.sendMessage(id, { video: { url: result.video }, caption });
+        await sock.sendMessage(id, { video: Buffer.from(arrBuffer), caption });
 
     } catch (error) {
         await sock.sendMessage(id, { text: '❌ Ups, terjadi kesalahan: ' + error.message });

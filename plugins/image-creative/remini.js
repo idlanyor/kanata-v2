@@ -12,12 +12,13 @@ export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
             // Mengunggah gambar dan mengubah menjadi HD menggunakan API Remini
             const imageUrl = await uploadGambar2(attf);
             const response = await fetch(`https://skizo.tech/api/remini?apikey=${config.apiHelper.skizotech.apikey}&url=${imageUrl}`);
-            const { url } = await response.json();
-
+            // const { url } = await response.arrayBuffer();
+            // console.log(response.url)
+            await sock.sendMessage(id, { text: `⏱️ Bentar,gambar burikmu sedang diproses` });
             // Mengirimkan gambar hasil yang sudah diubah ke HD
             await sock.sendMessage(id, {
-                image: { url },
-                caption: '📷 Remini berhasil! Gambar telah diubah ke kualitas HD 🎉'
+                image: { url: response.url },
+                caption: '📷 HD Image berhasil! Gambar telah diubah ke kualitas HD 🎉'
             }, { quoted: m });
 
         } catch (error) {
@@ -29,6 +30,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
 
     // Cek jika tidak ada gambar yang dikirim atau tidak dalam format yang benar
     if (!m.message?.conversation && !m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage) {
-        await sock.sendMessage(id, { text: 'Kirim atau balas gambar dengan caption *remini* untuk mengubahnya menjadi HD.' });
+        return
     }
+    await sock.sendMessage(id, { text: 'Kirim atau balas gambar dengan caption *remini* untuk mengubahnya menjadi HD.' });
 };
