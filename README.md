@@ -1,6 +1,17 @@
-# Little Kanata-Bot by RoiDev
+<div align="center">
+<h1>Little Kanata</h1>
+<h2 style="color:#1496DC">RoiDev x PadilDev</h2>
 
-This is a project that demonstrates the use of the Gemini API and GPT-3 API in whatsapp bot.
+![GitHub repo size](https://img.shields.io/github/repo-size/idlanyor/kanata-v2)
+![GitHub stars](https://img.shields.io/github/stars/idlanyor/kanata-v2?style=social)
+![GitHub license](https://img.shields.io/github/license/idlanyor/kanata-v2)
+
+![Kanata](https://telegra.ph/file/8360caca1efd0f697d122.jpg)
+
+</div>
+
+
+This is a project that demonstrates how to use plugin modular stucture to make a Bot Whatsapp using Baileys
 
 ## Requirements
 
@@ -16,20 +27,67 @@ npm install
 
 ## Usage
 
-To use this project, you will need to set up a Gemini API key and a GPT-3 API key. You can do this by renaming a file called `config.example.js` to `config.js` in the root directory of the project and adding the following code to it:
+To use this project, you will need to set up a Various API key. You can do this by renaming a file called `config.example.js` to `config.js` in the root directory of the project and adding the following code to it:
 
 ```javascript
 const config = {
-    gemini: 'YOUR_GEMINI_API_KEY',
-    gpt: 'YOUR_GPT-3_API_KEY',
-    notelp: '62xxx',
-    namaSesi: 'mybot',
+
+    gemini: 'YOUR_API_KEY',
+    gpt: 'YOUR_API_KEY',
+    mistral: 'YOUR_API_KEY',
+    notelp: 'YOUR_BOT_PHONE_NUMBER',
+    namaSesi: 'kanata_session',
+
+    ownerNumber: 'YOUR_BOT_PHONE_NUMBER',
+
+    apiHelper: {
+
+        lolhuman: {
+
+            apikey: 'YOUR_API_KEY',
+
+            baseUrl: 'https://api.lolhuman.xyz/api/'
+
+        },
+
+        betabotz: {
+
+            apikey: 'YOUR_API_KEY',
+
+            baseUrl: 'https://api.betabotz.eu.org/api/'
+
+        },
+
+        skizotech: {
+
+            apikey: 'YOUR_API_KEY',
+
+            baseUrl: 'https://skizo.tech/api/'
+
+        }
+
+    },
+
+    removeBG: 'YOUR_API_KEY',
+    // groq
+    groq: 'YOUR_API_KEY',
+    // Ilovepdf
+    pdf: {
+
+        secret: 'YOUR_API_SECRET_KEY',
+
+        public: 'YOUR_API_PUBLIC_KEY'
+
+    }
+
 }
+
+
 
 export default config
 ```
 
-Replace `YOUR_GEMINI_API_KEY` with your actual Gemini API key and `YOUR_GPT-3_API_KEY` with your actual GPT-3 API key.
+Replace all value wit your own.
 
 After that, you can start the project by running the following command in your terminal:
 
@@ -37,21 +95,22 @@ After that, you can start the project by running the following command in your t
 npm start
 ```
 
-The project will start a WebSocket server that listens for incoming messages from WhatsApp. When a message is received, it will be passed to the `clearMessages` function, which will remove any unnecessary data and return the message in a standard format.
-
-The message will then be passed to the appropriate API, depending on the command specified in the message. If the command is `gemini`, the message will be sent to the Gemini API, and the response will be sent back to the user. If the command is `gpt`, the message will be sent to the GPT-3 API, and the response will be sent back to the user.
-
-If the user sends a message that is not a command, it will be sent to both APIs, and the responses will be combined and sent back to the user.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgements
+## Api Used
 
-I would like to thank the developers of the Gemini API and GPT-3 API for making their APIs available to the public. I would also like to thank the developers of Baileys, a WhatsApp library for Node.js, for making it easy to integrate with the WhatsApp API.
+- [Google Generative AI](https://github.com/GoogleCloudPlatform/generative-ai)
+- [Groq](https://groq.com/)
+- [RemoveBG](https://www.remove.bg/id/api)
+- [ILovePDF](https://www.iloveapi.com/)
+- [BetaBotz](https://api.betabotz.eu.org/)
+- [SkizoTech](https://skizo.tech/)
+- [LolHuman](https://api.lolhuman.xyz/)
 
-## Special thanks to 
-- [UmamDev](https://github.com/UmamDev)
-- [OpenAI](https://github.com/openai)
-- [Google GenerativeAi](https://github.com/GoogleCloudPlatform/generative-ai)
+## Contributors
+- [Roynaldi](https://github.com/idlanyor)
+- [PadilDev](https://github.com/kumis-xd)
+- [Puan Mahalini](https://github.com/puanmahalini)
