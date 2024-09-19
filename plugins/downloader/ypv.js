@@ -16,7 +16,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         caption += `\n\n📹 *Judul:* ${result.title}`;
         caption += `\n📺 *Channel:* ${result.channel}`;
         caption += `\n\n⏳ _Video sedang dikirim. Mohon bersabar..._`;
-        const response = await fetch(result.audio);
+        const response = await fetch(result.video);
         const arrBuffer = await response.arrayBuffer()
         console.log(Buffer.from(arrBuffer))
 

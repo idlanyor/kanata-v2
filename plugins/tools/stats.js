@@ -1,5 +1,5 @@
 import os from 'os';
-export const handler = ""
+export const handler = "stats"
 async function systemSpec() {
     const platform = os.platform();
     const release = os.release();

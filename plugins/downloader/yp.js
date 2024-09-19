@@ -21,7 +21,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         const arrBuffer = await response.arrayBuffer()
         console.log(Buffer.from(arrBuffer))
 
-        await sock.sendMessage(id, { audio: Buffer.from(arrBuffer), mimetype: 'audio/mp4', fileName: result.title }, { quoted: m });
+        await sock.sendMessage(id, { audio: Buffer.from(arrBuffer), mimetype: 'audio/mp3', fileName: result.title }, { quoted: m });
 
     } catch (error) {
         await sock.sendMessage(id, { text: '❌ Ups, terjadi kesalahan: ' + error.message });

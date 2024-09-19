@@ -35,20 +35,35 @@ function findJsFiles(dir) {
     return results;
 }
 
-
+// Fungsi validasi nomor telepon
 async function getPhoneNumber() {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     const namaSesiPath = path.join(__dirname, config.namaSesi);
+
     try {
         await fs.promises.access(namaSesiPath);
         rl.close();
         return config.notelp;
     } catch {
         return new Promise(resolve => {
-            rl.question(chalk.yellow("Masukkan nomor telepon (dengan kode negara, contoh: 628xxxxx): "), input => {
-                rl.close();
-                resolve(input);
-            });
+            const validatePhoneNumber = (input) => {
+                const phoneRegex = /^62\d{9,15}$/; // Nomor kudu mulai karo '62' lan minimal 10 digit
+                return phoneRegex.test(input);
+            };
+
+            const askForPhoneNumber = () => {
+                rl.question(chalk.yellow("Masukkan nomor telepon (dengan kode negara, contoh: 628xxxxx): "), input => {
+                    if (validatePhoneNumber(input)) {
+                        rl.close();
+                        resolve(input);
+                    } else {
+                        console.log(chalk.red("Nomor telepon ora valid! Pastikan dimulai dengan '62' lan isine hanya angka (minimal 10 digit)."));
+                        askForPhoneNumber(); // Ulangi nek salah
+                    }
+                });
+            };
+
+            askForPhoneNumber(); // Mulai validasi
         });
     }
 }
@@ -62,9 +77,7 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
     const pluginsDir = path.join(__dirname, 'plugins');
     const plugins = Object.fromEntries(
         await Promise.all(findJsFiles(pluginsDir).map(async file => {
-            // const pluginName = path.basename(file, '.js');
             const { default: plugin, handler } = await import(pathToFileURL(file).href);
-            // console.log(handler);
             return [handler, plugin];
         }))
     );
@@ -74,7 +87,7 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
 
 }
 
-async function startBot() {
+export async function startBot() {
     const phoneNumber = await getPhoneNumber();
     const bot = new wabe({ phoneNumber, sessionId: config.namaSesi });
 
@@ -82,8 +95,6 @@ async function startBot() {
         sock.ev.on('messages.upsert', async chatUpdate => {
             try {
                 const m = chatUpdate.messages[0];
-                // m.message?.conversation
-                // console.log(() ? true : false);
                 const { remoteJid } = m.key;
                 const sender = m.pushName || remoteJid;
                 const id = remoteJid;
@@ -111,7 +122,6 @@ async function startBot() {
                 }
                 if (m.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                     const cmd = JSON.parse(m.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson);
-                    // console.log("perintah", cmd.id);
                     await prosesPerintah({ command: `!${cmd.id}`, sock, m, id, sender, noTel });
                 }
 
@@ -124,19 +134,6 @@ async function startBot() {
                         await prosesPerintah({ command: parsedMsg, sock, m, id, sender, noTel });
                     }
                 }
-                
-                // console.log(sock.user.id)
-                // let metadata = await getGroupMetadata({ sock, id });
-                // console.log(metadata)
-                // metadata.announce
-                // console.log(await sock.groupMetadata('120363249874424747@g.us'))
-                // console.log(await sock.fetchStatus(id));
-
-                // sock.groupParticipantsUpdate(id, [...id], 'promote')
-                // sock.groupParticipantsUpdate(id, [...id], 'demote')
-                // sock.groupParticipantsUpdate(id, [...id], 'remove')
-                // sock.groupParticipantsUpdate(id, [...id], 'add')
-                // sock.groupParticipantsUpdate(id, [...id], 'promote')
             } catch (error) {
                 console.log('Error handling message:', error);
             }

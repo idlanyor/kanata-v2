@@ -1,7 +1,9 @@
-import { makeWASocket, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeInMemoryStore, PHONENUMBER_MCC, useMultiFileAuthState, DisconnectReason, Browsers } from "@whiskeysockets/baileys";
+import { makeWASocket, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeInMemoryStore, useMultiFileAuthState, DisconnectReason, Browsers } from "@whiskeysockets/baileys";
 import pino from "pino";
 import NodeCache from "node-cache";
 import chalk from 'chalk';
+import fs from 'fs-extra'; // tambah nggo file handling
+import { startBot } from "../main.js";
 
 class wabe {
     constructor(data) {
@@ -42,10 +44,9 @@ class wabe {
                 keys: makeCacheableSignalKeyStore(state.keys, P),
             },
             msgRetryCounterCache,
-            // Tambahkan opsi untuk meningkatkan stabilitas koneksi dan mencegah idle
             connectOptions: {
-                maxRetries: 5, // Meningkatkan jumlah percobaan koneksi ulang
-                keepAlive: true, // Aktifkan keep alive untuk mencegah koneksi idle
+                maxRetries: 5,
+                keepAlive: true,
             },
         });
 
@@ -53,13 +54,29 @@ class wabe {
 
         sock.ev.on("creds.update", saveCreds);
 
+        // Tambah mekanisme retry jika koneksi gagal pas request pairing code
         if (!sock.authState.creds.registered) {
-            console.log(chalk.red("Mohon masukkan kode pairing"));
+            console.log(chalk.yellowBright("Menunggu Pairing Code"));
             const number = this.phoneNumber;
             const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-            await delay(6000);
-            const code = await sock.requestPairingCode(number);
-            console.log(chalk.green("Kode Pairing: "), chalk.bold(code));
+
+            let retryCount = 0;
+            const maxRetries = 1;
+
+            while (retryCount < maxRetries) {
+                try {
+                    await delay(6000);
+                    const code = await sock.requestPairingCode(number);
+                    console.log(chalk.green("Kode Pairing: "), chalk.bgGreen(code));
+                    break; // Kalo sukses, break loop
+                } catch (err) {
+                    retryCount++;
+                    if (retryCount >= maxRetries) {
+                        await fs.remove(`./${this.sessionId}`);
+                        await startBot();
+                    }
+                }
+            }
         }
 
         sock.ev.on("connection.update", async update => {
@@ -68,18 +85,22 @@ class wabe {
                 console.log(chalk.blue("Memulai koneksi soket"));
             } else if (connection === "open") {
                 console.log(chalk.green("Soket terhubung"));
-                // Melakukan ping periodik untuk memastikan koneksi tetap hidup
-                // Tambahkan logika untuk merestart koneksi setelah terkoneksi untuk pertama kali
-                if (lastDisconnect && lastDisconnect.error.output.statusCode === DisconnectReason.loggedOut) {
-                    console.log(chalk.red("Koneksi terputus karena logout, mencoba kembali..."));
-                    this.start().catch(() => this.start());
-                }
             } else if (connection === "close") {
-                if (lastDisconnect.error.output.statusCode == DisconnectReason.loggedOut) {
-                    process.exit(0);
+                const reason = lastDisconnect?.error?.output?.statusCode;
+
+                if (reason === DisconnectReason.loggedOut) {
+                    console.log(chalk.red("Sesi ora valid, bakal dihapus..."));
+
+                    // Hapus folder sesi kalo sesi logout
+                    await fs.remove(`./${this.sessionId}`);
+                    console.log(chalk.yellow(`Folder sesi ${this.sessionId} dihapus, login ulang...`));
+
+                    // Login ulang tanpa nge-delay
+                    console.log(chalk.green("Login ulang berhasil. Eksekusi tugas selanjutnya..."));
+                    await startBot();
                 } else {
                     console.log(chalk.red("Koneksi terputus, mencoba kembali..."));
-                    this.start().catch(() => this.start());
+                    await startBot();
                 }
             }
         });

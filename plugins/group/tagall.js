@@ -8,6 +8,6 @@ export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
     for (let v of metadata.participants) {
         teks += `@${v.id.split('@')[0]}\n`
     };
-    await sock.sendMessage(id, { text: teks }, { quoted: m })
+    await sock.sendMessage(id, { text: teks, mentions: memberId }, { quoted: m })
 }
 
