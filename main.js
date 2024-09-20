@@ -50,7 +50,6 @@ async function getPhoneNumber() {
                 const phoneRegex = /^62\d{9,15}$/; // Nomor kudu mulai karo '62' lan minimal 10 digit
                 return phoneRegex.test(input);
             };
-
             const askForPhoneNumber = () => {
                 rl.question(chalk.yellow("Masukkan nomor telepon (dengan kode negara, contoh: 628xxxxx): "), input => {
                     if (validatePhoneNumber(input)) {
@@ -61,8 +60,9 @@ async function getPhoneNumber() {
                         askForPhoneNumber(); // Ulangi nek salah
                     }
                 });
+                console.log('...')
             };
-
+            console.log("Selamat Datang di Kanata Bot")
             askForPhoneNumber(); // Mulai validasi
         });
     }

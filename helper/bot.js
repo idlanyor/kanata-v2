@@ -67,7 +67,7 @@ class wabe {
                 try {
                     await delay(6000);
                     const code = await sock.requestPairingCode(number);
-                    console.log(chalk.green("Kode Pairing: "), chalk.bgGreen(code));
+                    console.log(chalk.green("Kode Pairing: "), chalk.bgGreen.black(code));
                     break; // Kalo sukses, break loop
                 } catch (err) {
                     retryCount++;
