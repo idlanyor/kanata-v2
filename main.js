@@ -43,7 +43,6 @@ async function getPhoneNumber() {
     try {
         await fs.promises.access(namaSesiPath);
         rl.close();
-        return config.notelp;
     } catch {
         return new Promise(resolve => {
             const validatePhoneNumber = (input) => {
@@ -71,8 +70,8 @@ async function getPhoneNumber() {
 async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
     if (!command) return;
     let [cmd, ...args] = "";
-    [cmd, ...args] = command.split(' ');
-    if (command.startsWith('!')) cmd = command.substring(1);
+    [cmd, ...args] = command.toLowerCase().split(' ');
+    if (command.startsWith('!')) cmd = command.toLowerCase().substring(1);
     // console.log(cmd)
     const pluginsDir = path.join(__dirname, 'plugins');
     const plugins = Object.fromEntries(

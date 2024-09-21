@@ -74,7 +74,23 @@ export const getGroupMetadata = async ({ sock, id }) => {
     }
 
 }
-export const isBotAdmin = async (sock, id) => {
+export const isBotAdmin = async ({ sock, id }) => {
     let metadata = await getGroupMetadata(sock, id)
     return metadata.participants.find(v => v.id == sanitizeBotId(sock.user.id)).admin
+}
+export const isAdmin = async ({ sock, id, sender }) => {
+    let metadata = await getGroupMetadata(sock, id)
+    return metadata.participants.find(v => v.id == sender).admin
+}
+export const isSuperAdmin = async ({ sock, id, sender }) => {
+    let metadata = await getGroupMetadata(sock, id)
+    return metadata.participants.find(v => v.id == sender).admin == 'superadmin'
+}
+export const isOwnerGrup = async ({ sock, id, sender }) => {
+    let metadata = await getGroupMetadata(sock, id)
+    return metadata.owner == sender
+}
+export const isGroup = async ({ sock, id }) => {
+    let metadata = await getGroupMetadata(sock, id)
+    return metadata.id.endsWith('@g.us')
 }

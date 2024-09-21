@@ -5,10 +5,10 @@ export const description = "Tebak Gambar";
 
 const gambar = async (id, sock) => {
     try {
-        const response = await tebak('gambar');
-        const img = response.data.result.image;
-        const answer = response.data.result.answer;
-        await sock.sendMessage(id, { image: { url: img.replace(/\.png$/, '.jpg') } })
+        const response = await tebak('tebakgambar');
+        const img = response.data.img;
+        const answer = response.data.jwb;
+        await sock.sendMessage(id, { image: { url: img } })
 
         tebakSession.set(id, {
             answer: answer,
