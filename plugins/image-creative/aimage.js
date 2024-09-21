@@ -12,7 +12,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
 
     try {
         // Notifikasi proses sedang berlangsung
-        await sock.sendMessage(id, { text: '🎨 Sedang diproses, mohon tunggu sebentar ya... ⏳' });
+        await sock.sendMessage(id, { text: '🎨 Bot Sedang berimajinasi, tunggu bentar ya... ⏳' });
 
         // Mengirimkan hasil gambar yang dihasilkan AI
         const imageUrl = await dalle3(psn);

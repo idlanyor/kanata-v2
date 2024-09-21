@@ -70,13 +70,17 @@ async function getPhoneNumber() {
 async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
     if (!command) return;
     let [cmd, ...args] = "";
-    [cmd, ...args] = command.toLowerCase().split(' ');
+    [cmd, ...args] = command.split(' ');
+    cmd = cmd.toLowerCase();
     if (command.startsWith('!')) cmd = command.toLowerCase().substring(1);
     // console.log(cmd)
     const pluginsDir = path.join(__dirname, 'plugins');
     const plugins = Object.fromEntries(
         await Promise.all(findJsFiles(pluginsDir).map(async file => {
             const { default: plugin, handler } = await import(pathToFileURL(file).href);
+            if (Array.isArray(handler) && handler.includes(cmd)) {
+                return [cmd, plugin];
+            }
             return [handler, plugin];
         }))
     );
@@ -108,6 +112,8 @@ export async function startBot() {
 
                 if (m.message?.audioMessage || m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.audioMessage) {
                     const audioMessage = m.message.audioMessage || m.message.extendedTextMessage.contextInfo.quotedMessage.audioMessage;
+                    // console.log(chatUpdate.type)
+                    if (!m.message?.audioMessage?.contextInfo?.quotedMessage) return
                     const audioBuffer = await getMedia(audioMessage);
                     const commandAudio = m.message.audioMessage?.caption || m.message.extendedTextMessage?.contextInfo?.quotedMessage?.audioMessage?.caption;
                     await prosesPerintah({ command: commandAudio, sock, m: audioMessage, id, sender, noTel, attf: audioBuffer });

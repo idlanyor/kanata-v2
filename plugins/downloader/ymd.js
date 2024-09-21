@@ -9,11 +9,10 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         return;
     }
     try {
-        await sock.sendMessage(id, { text: '🔄 *Processing...* Mohon tunggu sebentar...' });
+        await sock.sendMessage(id, { text: '🔄 *Sedang Memproses...* Mohon tunggu sebentar...' });
         let result = await yutub(psn);
-        await sock.sendMessage(id, { audio: { url: result.audio }, ptt: true });
-
+        await sock.sendMessage(id, { audio: { url: result.audio }, mimetype: 'audio/mpeg' }, { quoted: m });
     } catch (error) {
-        await sock.sendMessage(id, { text: '❌ *Terjadi kesalahan:* \n' + error.message });
+        await sock.sendMessage(id, { text: '❌ *Terjadi kesalahan:* \n' + error });
     }
 };
