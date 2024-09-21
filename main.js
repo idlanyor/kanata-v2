@@ -1,4 +1,4 @@
-import { wabe, clearMessages } from './helper/bot.js';
+import { Kanata, clearMessages } from './helper/bot.js';
 import config from "./config.js";
 import { groupParticipants, groupUpdate } from './lib/group.js';
 import { checkAnswer, tebakSession } from './lib/tebak/index.js';
@@ -9,7 +9,6 @@ import path from 'path';
 import chalk from 'chalk';
 import readline from 'readline';
 import { call } from './lib/call.js';
-import { getGroupMetadata } from './helper/group.js';
 
 // Mendefinisikan __dirname untuk ES6
 const __filename = fileURLToPath(import.meta.url);
@@ -92,7 +91,7 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
 
 export async function startBot() {
     const phoneNumber = await getPhoneNumber();
-    const bot = new wabe({ phoneNumber, sessionId: config.namaSesi });
+    const bot = new Kanata({ phoneNumber, sessionId: config.namaSesi });
 
     bot.start().then(sock => {
         sock.ev.on('messages.upsert', async chatUpdate => {

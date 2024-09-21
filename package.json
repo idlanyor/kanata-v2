@@ -36,6 +36,6 @@
   "devDependencies": {
     "chai": "^5.1.0",
     "mocha": "^10.3.0",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.7"
   }
 }

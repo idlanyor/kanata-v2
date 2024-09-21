@@ -11,7 +11,9 @@ export default async ({ sock, id, m, noTel, sender }) => {
             title: `❏┄┅━┅┄〈 〘 ${plugin.toUpperCase()} 〙`,
             rows: plugins[plugin].map((command) => {
                 return {
-                    title: command.handler.toUpperCase(),
+                    title: Array.isArray(command.handler)
+                        ? command.handler.map(h => h.toUpperCase()).join(', ')
+                        : command.handler.toUpperCase(),
                     description: command.description,
                     id: `${command.handler}`
                 }

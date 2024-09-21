@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import fs from 'fs-extra'; // tambah nggo file handling
 import { startBot } from "../main.js";
 
-class wabe {
+class Kanata {
     constructor(data) {
         this.phoneNumber = data.phoneNumber;
         this.sessionId = data.sessionId;
@@ -175,4 +175,4 @@ async function clearMessages(m) {
 }
 const sanitizeBotId = botId => botId.split(":")[0] + "@s.whatsapp.net";
 
-export { wabe, clearMessages, sanitizeBotId };
+export { Kanata, clearMessages, sanitizeBotId };
