@@ -80,7 +80,7 @@ export default async ({ sock, id, m, noTel, sender }) => {
                 newsletterAdminInviteMessage: {
                     newsletterJid: '120363302865191524@newsletter',
                     newsletterName: 'Kanata Bot',
-                    caption: sender
+                    caption: `${sender} : List AI`
                 }
             }
         }

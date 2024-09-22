@@ -71,7 +71,12 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
     let [cmd, ...args] = "";
     [cmd, ...args] = command.split(' ');
     cmd = cmd.toLowerCase();
-    if (command.startsWith('!')) cmd = command.toLowerCase().substring(1);
+    if (command.startsWith('!')) {
+        cmd = command.toLowerCase().substring(1).split(' ')[0];
+        args = command.split(' ').slice(1)
+    }
+    console.log("cmd:", cmd)
+    console.log(args)
     // console.log(cmd)
     const pluginsDir = path.join(__dirname, 'plugins');
     const plugins = Object.fromEntries(
@@ -126,6 +131,7 @@ export async function startBot() {
                 }
                 if (m.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                     const cmd = JSON.parse(m.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson);
+                    // console.log(cmd.id)
                     await prosesPerintah({ command: `!${cmd.id}`, sock, m, id, sender, noTel });
                 }
 

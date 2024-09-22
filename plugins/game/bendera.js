@@ -3,13 +3,12 @@ import { tebakSession } from "../../lib/tebak/index.js";
 export const handler = "bendera"
 export const description = "Tebak Bendera";
 function countryToFlagEmoji(countryCode) {
-    // Konversi kode negara jadi uppercase (ngantisipasi input lowercase)
     let code = countryCode.toUpperCase();
 
-    // Cek apakah kode negara valid (harus 2 huruf)
     if (code.length !== 2) {
         throw new Error('Kode negara kudu 2 huruf!');
     }
+
 
     // Konversi masing-masing karakter kode negara dadi emoji bendera
     let flag = String.fromCodePoint(code.charCodeAt(0) + 127397) +
