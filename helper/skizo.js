@@ -1,10 +1,9 @@
 import axios from 'axios';
-import config from '../config.js';
 
 const axiosInstance = axios.create({
-    baseURL: config.apiHelper.skizotech.baseUrl,
+    baseURL: globalThis.apiHelper.skizotech.baseUrl,
     params: {
-        apikey: config.apiHelper.skizotech.apikey
+        apikey: globalThis.apiHelper.skizotech.apikey
     }
 });
 

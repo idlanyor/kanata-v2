@@ -1,7 +1,7 @@
 // import { clearMessages } from '@umamdev/wabe'
 // import { wabe } from './helper/bot.js';
 // import { meta, tiktok, yutub } from './downloader.js';
-// import config from "./config.js";
+// import config from "./globalThis.js";
 // import { groupParticipants, groupUpdate, grupAction } from './group.js';
 // import { call } from './call.js';
 // import { bendera, caklontong, checkAnswer, gambar, jenaka, susun, tebakSession } from './tebak/index.js';
@@ -21,8 +21,8 @@
 // import chalk from 'chalk';
 
 // const bot = new wabe({
-//     phoneNumber: config.notelp,
-//     sessionId: config.namaSesi,
+//     phoneNumber: globalThis.notelp,
+//     sessionId: globalThis.namaSesi,
 //     useStore: false
 // })
 

@@ -1,4 +1,4 @@
-import { ytPlay } from '../../lib/youtube.js';
+import { ytPlayVideo } from '../../lib/youtube.js';
 
 export const description = 'Putar dan Download Video dari *YouTube*';
 export const handler = "ypv"
@@ -10,7 +10,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
         }
 
         await sock.sendMessage(id, { text: '🔍 Sedang mencari video... Mohon tunggu sebentar.' });
-        let result = await ytPlay(psn);
+        let result = await ytPlayVideo(psn);
         console.log(result)
         caption = '*Hasil Pencarian Video YouTube*';
         caption += `\n\n📹 *Judul:* ${result.title}`;

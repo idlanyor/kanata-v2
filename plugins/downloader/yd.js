@@ -1,4 +1,4 @@
-import { yutub } from "../../lib/downloader.js";
+import { yutubVideo } from "../../lib/downloader.js";
 export const description = "YouTube Video Downloader provided by *Roidev*";
 export const handler = "yd"
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
@@ -10,7 +10,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     }
     try {
         await sock.sendMessage(id, { text: '🔄 *Processing...* Mohon tunggu sebentar...' });
-        let result = await yutub(psn);
+        let result = await yutubVideo(psn);
         caption = '*🎬 Hasil Video YouTube:*'
         caption += '\n📛 *Title:* ' + `*${result.title}*`;
         caption += '\n📺 *Channel:* ' + `*${result.channel}*`;

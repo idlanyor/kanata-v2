@@ -1,6 +1,5 @@
 import axios from 'axios'
 import FormData from 'form-data'
-import config from '../config.js'
 import fs from 'fs'
 const bufferToReadStream = (buffer, path) => {
     // Simpan buffer iki dadi file sementara nganggo path
@@ -14,11 +13,11 @@ export const uploadGambar = async (buffer) => {
     try {
         const form = new FormData()
         form.append('file', buffer)
-        form.append('api_key', config.apiHelper.imgHippo.apikey)
+        form.append('api_key', globalThis.apiHelper.imgHippo.apikey)
         const headers = {
             ...form.getHeaders()
         };
-        const response = await axios.post(config.apiHelper.imgHippo.baseUrl, form, {
+        const response = await axios.post(globalThis.apiHelper.imgHippo.baseUrl, form, {
             headers
         })
         return response.data.url

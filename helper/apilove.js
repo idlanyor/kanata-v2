@@ -1,9 +1,8 @@
 import ILovePDFApi from "@ilovepdf/ilovepdf-nodejs";
-import config from "../config.js";
 import fs from 'fs';
 import path from 'path';
 
-const apilove = new ILovePDFApi(config.pdf.public, config.pdf.secret);
+const apilove = new ILovePDFApi(globalThis.pdf.public, globalThis.pdf.secret);
 
 // const imageToPdf = async (imageBuffer) => {
 //     const imgpdf = apilove.newTask('imagepdf');

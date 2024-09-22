@@ -1,8 +1,6 @@
 import axios from 'axios';
-import config from '../config.js';
-
 const axiosInstance = axios.create({
-    baseURL: config.nxys
+    baseURL: globalThis.apiHelper.nxys.baseUrl
 });
 
 export const nyxs = async (url, config = {}) => {

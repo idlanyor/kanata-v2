@@ -1,5 +1,3 @@
-import axios from 'axios';
-import config from '../config.js';
 import { skizo } from './skizo.js';
 
 

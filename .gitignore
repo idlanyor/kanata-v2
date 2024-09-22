@@ -2,8 +2,6 @@
 node_modules
 package-lock.json
 store-*.json
-config.js
-config.global.js
 *.mp4
 *.png
 *.jpeg
@@ -12,3 +10,4 @@ db.*
 *.tar.gz
 *.rar
 *.html
+global.js

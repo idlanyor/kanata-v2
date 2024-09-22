@@ -27,7 +27,7 @@ npm install
 
 ## Usage
 
-To use this project, you will need to set up a Various API key. You can do this by renaming a file called `config.example.js` to `config.js` in the root directory of the project and adding the following code to it:
+To use this project, you will need to set up a Various API key. You can do this by renaming a file called `globalThis.example.js` to `globalThis.js` in the root directory of the project and adding the following code to it:
 
 ```javascript
 const config = {

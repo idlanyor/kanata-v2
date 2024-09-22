@@ -1,4 +1,3 @@
-import config from "../../config.js";
 import { uploadGambar2 } from "../../helper/uploader.js";
 export const handler = "remini"
 export const description = "✨ Remini: Ubah gambar burik menjadi HD! 📸";
@@ -9,7 +8,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption, attf }) => {
         try {
             // Mengunggah gambar dan mengubah menjadi HD menggunakan API Remini
             const imageUrl = await uploadGambar2(attf);
-            const response = await fetch(`https://skizo.tech/api/remini?apikey=${config.apiHelper.skizotech.apikey}&url=${imageUrl}`);
+            const response = await fetch(`https://skizo.tech/api/remini?apikey=${globalThis.apiHelper.skizotech.apikey}&url=${imageUrl}`);
             await sock.sendMessage(id, {
                 image: { url: response.url },
                 caption: '📷 HD Image berhasil! Gambar burikmu telah dikonversi ke kualitas HD 🎉'

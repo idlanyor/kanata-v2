@@ -1,5 +1,5 @@
+import './global.js'
 import { Kanata, clearMessages } from './helper/bot.js';
-import config from "./config.js";
 import { groupParticipants, groupUpdate } from './lib/group.js';
 import { checkAnswer, tebakSession } from './lib/tebak/index.js';
 import { getMedia } from './helper/mediaMsg.js';
@@ -37,7 +37,7 @@ function findJsFiles(dir) {
 // Fungsi validasi nomor telepon
 async function getPhoneNumber() {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    const namaSesiPath = path.join(__dirname, config.namaSesi);
+    const namaSesiPath = path.join(__dirname, globalThis.sessionName);
 
     try {
         await fs.promises.access(namaSesiPath);
@@ -96,7 +96,7 @@ async function prosesPerintah({ command, sock, m, id, sender, noTel, attf }) {
 
 export async function startBot() {
     const phoneNumber = await getPhoneNumber();
-    const bot = new Kanata({ phoneNumber, sessionId: config.namaSesi });
+    const bot = new Kanata({ phoneNumber, sessionId: globalThis.sessionName });
 
     bot.start().then(sock => {
         sock.ev.on('messages.upsert', async chatUpdate => {
@@ -105,7 +105,7 @@ export async function startBot() {
                 const { remoteJid } = m.key;
                 const sender = m.pushName || remoteJid;
                 const id = remoteJid;
-                const noTel = remoteJid;
+                const noTel = remoteJid.split('@')[0].replace(/[^0-9]/g, '');
 
                 if (m.message?.imageMessage || m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage) {
                     const imageMessage = m.message.imageMessage || m.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage;
