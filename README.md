@@ -30,61 +30,70 @@ npm install
 To use this project, you will need to set up a Various API key. You can do this by renaming a file called `globalThis.example.js` to `globalThis.js` in the root directory of the project and adding the following code to it:
 
 ```javascript
-const config = {
+// variabel dasar
+globalThis.owner = "Roynaldi";
+globalThis.botName = "Sonata Bot";
+globalThis.ownerNumber = ""
+globalThis.botNumber = ""
+globalThis.sessionName = 'kanata-bot'
 
-    gemini: 'YOUR_API_KEY',
-    gpt: 'YOUR_API_KEY',
-    mistral: 'YOUR_API_KEY',
-    notelp: 'YOUR_BOT_PHONE_NUMBER',
-    namaSesi: 'kanata_session',
+// fungsi dasar
+globalThis.isOwner = (id) => {
+    return id === globalThis.ownerNumber
+}
+globalThis.isBot = async (id) => {
+    return id === botNumber
+}
 
-    ownerNumber: 'YOUR_BOT_PHONE_NUMBER',
+// variabel apikey
+globalThis.apiKey = {
+    gemini: '',
+    gpt: '',
+    mistral: '',
+    removeBG: '',
+    groq: '',
+    pdf: {
+        secret: '',
+        public: ''
+    }
+}
 
-    apiHelper: {
+// variabel paired apikey with baseurl
+globalThis.apiHelper = {
+    medanpedia: {
+        apiId: '',
+        apiKey: ''
+    },
+    lolhuman: {
 
-        lolhuman: {
+        apikey: '',
 
-            apikey: 'YOUR_API_KEY',
-
-            baseUrl: 'https://api.lolhuman.xyz/api/'
-
-        },
-
-        betabotz: {
-
-            apikey: 'YOUR_API_KEY',
-
-            baseUrl: 'https://api.betabotz.eu.org/api/'
-
-        },
-
-        skizotech: {
-
-            apikey: 'YOUR_API_KEY',
-
-            baseUrl: 'https://skizo.tech/api/'
-
-        }
+        baseUrl: 'https://api.lolhuman.xyz/api/'
 
     },
 
-    removeBG: 'YOUR_API_KEY',
-    // groq
-    groq: 'YOUR_API_KEY',
-    // Ilovepdf
-    pdf: {
+    betabotz: {
 
-        secret: 'YOUR_API_SECRET_KEY',
+        apikey: '',
 
-        public: 'YOUR_API_PUBLIC_KEY'
+        baseUrl: 'https://api.betabotz.eu.org/api/'
 
+    },
+
+    skizotech: {
+
+        apikey: '',
+
+        baseUrl: 'https://skizo.tech/api/'
+
+    },
+    nyxs: {
+        apikey: '',
+        baseUrl: 'https://api.nyxs.pw/api/'
     }
 
 }
 
-
-
-export default config
 ```
 
 Replace all value wit your own.

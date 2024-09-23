@@ -9,6 +9,9 @@ import path from 'path';
 import chalk from 'chalk';
 import readline from 'readline';
 import { call } from './lib/call.js';
+import OpenAI from "openai";
+
+globalThis.openai = new OpenAI({ apiKey: globalThis.apiKey.gpt });
 
 // Mendefinisikan __dirname untuk ES6
 const __filename = fileURLToPath(import.meta.url);
