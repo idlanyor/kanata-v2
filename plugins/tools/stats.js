@@ -4,10 +4,10 @@ async function systemSpec() {
     const platform = os.platform();
     const release = os.release();
     const osType = os.type();
-    let OS = `🌐 *Server System Information* 🌐\n\n`;
+    let OS = `🌐「 *Server System Information* 」* 🌐\n\n`;
 
     // Informasi OS
-    OS += `💻 *OS*: ${osType} (${platform} ${release})\n\n`;
+    OS += `💻 *OS*: ${osType} (${platform} ${release})\n`;
 
     // Informasi RAM
     const totalMem = os.totalmem() / (1024 ** 3); // Dalam GB
@@ -30,7 +30,7 @@ async function systemSpec() {
     OS += `🖥️ *CPU Info*:\n`;
     const cpus = os.cpus();
     cpus.forEach((cpu, index) => {
-        OS += `   🔹 *CPU ${index + 1}*: ${cpu.model} (${cpu.speed} MHz)\n`;
+        OS += `   🔹 *CPU ${index + 1}*: ${cpu.model} (${cpu.times.user / 1000} MHz)\n`;
     });
 
     return OS;
