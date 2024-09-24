@@ -1,6 +1,6 @@
 <div align="center">
 <h1>Little Kanata</h1>
-<h2 style="color:#1496DC">RoiDev x PadilDev</h2>
+<h2 style="color:#1496DC">by Roy</h2>
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/idlanyor/kanata-v2)
 ![GitHub stars](https://img.shields.io/github/stars/idlanyor/kanata-v2?style=social)
