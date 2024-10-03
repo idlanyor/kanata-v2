@@ -1,9 +1,9 @@
-export const handler = 'ai3'
+export const handler = 'jipiti'
 export const description = "AI GPT-4o-mini with Web Access provided by *OpenAI*";
 export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     if (psn === '') {
         sock.sendMessage(id, {
-            text: "prefix *ai3* Tanyakan sesuatu kepada AI GPT-4o-mini\n contoh : ai3 siapa presiden indonesia saat ini"
+            text: "prefix *jipiti* Tanyakan sesuatu kepada AI GPT-4o-mini\n contoh : ai3 siapa presiden indonesia saat ini"
         })
         return
     }
