@@ -9,7 +9,7 @@ export default async ({ sock, m, id, psn, sender, noTel, caption }) => {
     }
     try {
         const response = await globalThis.openai.chat.completions.create({
-            model: "chatgpt-4o-latest",
+            model: "gpt-4o-mini",
             messages: [
                 {
                     role: "system",
