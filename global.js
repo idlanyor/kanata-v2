@@ -18,8 +18,8 @@ globalThis.isGroup = (jid) => {
 }
 // variabel apikey
 globalThis.apiKey = {
-    gemini: 'AIzaSyBmiAY7nBuRDVne17wfTsNdGeSVdw8j>
-    gpt: 'sk-proj-XkIztzeeeT1vLNZNcAIhT3BlbkFJp6f>
+    gemini: 'AIzaSyBmiAY7nBuRDVne17wfTsNdGeSVdw8j>',
+    gpt: '',
     mistral: 'pksu20zEwUnzPxm71ptHtC38iHnZRBDC',
     removeBG: 'EhDFhCrjTZ15Hm1B5yW96FZz',
     groq: 'gsk_axVzqJvVYZPKvUBlujUCWGdyb3FYc0uaCP>
