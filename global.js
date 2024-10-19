@@ -2,7 +2,7 @@ GNU nano 7.2         global.js
 // variabel dasar
 globalThis.owner = "Roynaldi";
 globalThis.ownerNumber = "62895395590009"
-globalThis.botNumber = "6285198621947"
+globalThis.botNumber = "628157695152"
 globalThis.sessionName = 'kanata-bot'
 
 // fungsi dasar
