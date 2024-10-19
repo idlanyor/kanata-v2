@@ -1,4 +1,4 @@
-GNU nano 7.2         global.js
+
 // variabel dasar
 globalThis.owner = "Roynaldi";
 globalThis.ownerNumber = "62895395590009"
